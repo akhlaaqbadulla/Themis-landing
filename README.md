@@ -10,6 +10,24 @@ docker compose up -d --build
 
 The image is built from `lipanski/docker-static-website` (BusyBox httpd, ~150 KB base) and listens on port 3000 inside the container. Traefik terminates TLS, applies the `secHeaders@file` and `gzip_compress@file` middlewares, and routes `Host(the-company.ai)` to it.
 
+## Continuous deployment
+
+Every push to `main` triggers `.github/workflows/deploy.yml` on the self-hosted runner on this server (`actions.runner.akhlaaqbadulla-Themis-landing.themis-landing-deploy.service`). The workflow: `git reset --hard $SHA` → `docker compose build` → `docker compose up -d --remove-orphans` → polls `https://the-company.ai` for a 200. End-to-end runtime ~20 s.
+
+To (re)install the runner:
+
+```bash
+./scripts/setup-runner.sh
+```
+
+Idempotent — safe to re-run after a runner unregister, a repo rename, or a server reinstall. Needs `gh` authenticated as someone with admin on the repo.
+
+To trigger a deploy without pushing:
+
+```bash
+gh workflow run deploy.yml
+```
+
 ## Prerequisites (one-time)
 
 The container joins the external Docker network `project-themis_themis_net` created by the Traefik compose at `/home/ubuntu/opt/traefik/`. Before `docker compose up`:
