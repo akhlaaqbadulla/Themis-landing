@@ -59,10 +59,10 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Only the fixed canvas needs the solid background, not the scroll-space div */
-    #canvas-sticky {
-      background: #ECECEC;
-    }
+    /* #canvas-sticky stays transparent so the progressive opacity
+       fade at the end of the hero dissolves the sharp canvas into
+       the blurred frame-192 backdrop beneath (body::before). The
+       #loading overlay covers the gray stage during preload. */
     #gates-hero {
       background: transparent;
     }
@@ -174,12 +174,12 @@
       left: 0;
       height: 100vh;
       width: 100vw;
-      background: #ECECEC;
       z-index: 50;
-      transition: opacity 0.5s ease;
     }
+    /* Canvas opacity is now driven per-frame by onScroll (progressive
+       fade over the last 15% of the hero). Past-hero only disables
+       pointer-events so scroll below the hero is unaffected. */
     #canvas-sticky.past-hero {
-      opacity: 0;
       pointer-events: none;
     }
 
@@ -819,11 +819,8 @@
       #gates-hero { height: 350vh; }
     }
 
-    /* The canvas fade at the end of the hero dovetails into the blurred
-       backdrop (body::before is the same frame 192, blurred). Use a
-       slightly longer fade so that hand-off reads as one continuous
-       image sharpening into softness rather than a cut. */
-    #canvas-sticky { transition: opacity 0.75s cubic-bezier(.4,0,.2,1); }
+    /* No CSS transition on opacity — onScroll drives it per-frame so the
+       fade tracks the scroll rather than trailing it with easing. */
   </style>
 </head>
 <body>
@@ -846,9 +843,6 @@
 <!-- ── Fixed background (marble, clouds, themis, frosted) ── -->
 <!-- z-index: -1 from style.css — hidden behind canvas during hero, revealed after -->
 <div class="fixed-background" aria-hidden="true">
-  <video class="gavel-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-    <source src="gavel.mp4" type="video/mp4">
-  </video>
   <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
   <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
   <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
@@ -1515,26 +1509,48 @@
     }
   }
 
-  /* Scroll handler — canvas is position:fixed, hide it once past hero */
+  /* Thresholds driving the hand-off to the content below the hero */
+  var STATUE_REVEAL    = 0.72;  // body.gates-opened toggles here
+  var CANVAS_FADE_FROM = 0.85;  // canvas starts fading at 85% scroll
+
+  /* Scroll handler — canvas is position:fixed.
+     Instead of a binary "past hero" opacity flip, we fade the canvas
+     progressively over the final 15% of the hero scroll. By the time
+     the user lands on the content section, the sharp canvas has
+     dissolved into the blurred backdrop behind it (same frame 192)
+     and the statue has faded in — no visual seam. */
   function onScroll() {
     var scrollY  = window.scrollY || window.pageYOffset;
-    var heroH    = hero.offsetHeight;          // 550vh in pixels
-    var maxSc    = heroH - window.innerHeight; // scroll distance through hero
-
-    if (scrollY >= maxSc) {
-      canvasSticky.classList.add('past-hero');
-    } else {
-      canvasSticky.classList.remove('past-hero');
-    }
-
-    if (scrollY > 60) { hint.classList.add('hidden'); }
-    else              { hint.classList.remove('hidden'); }
-
-    /* Cheap bail-out: hero off-screen = no canvas work at all.
-       Beats are inside the hero so they don't need updating either. */
-    if (!heroInView) return;
+    var heroH    = hero.offsetHeight;
+    var maxSc    = heroH - window.innerHeight;
 
     var progress = clamp(scrollY / maxSc, 0, 1);
+
+    /* Opacity from JS so the gradient fade is tied to scroll, not a
+       post-hoc CSS transition. pointer-events follows via .past-hero. */
+    var fade;
+    if (progress <= CANVAS_FADE_FROM) fade = 1;
+    else fade = Math.max(0, 1 - (progress - CANVAS_FADE_FROM) / (1 - CANVAS_FADE_FROM));
+    canvasSticky.style.opacity = fade;
+
+    if (scrollY >= maxSc) canvasSticky.classList.add('past-hero');
+    else                  canvasSticky.classList.remove('past-hero');
+
+    /* Narrative: statue of Themis appears once the gates are open. */
+    if (progress >= STATUE_REVEAL) document.body.classList.add('gates-opened');
+    else                           document.body.classList.remove('gates-opened');
+
+    /* Once the hero is fully behind us, toggle a flag so mobile can fade
+       the statue back out and let the stacked content take the stage. */
+    if (scrollY > maxSc + 80) document.body.classList.add('past-gates-hero');
+    else                      document.body.classList.remove('past-gates-hero');
+
+    if (scrollY > 60) hint.classList.add('hidden');
+    else              hint.classList.remove('hidden');
+
+    /* Cheap bail-out: hero off-screen = no canvas draw work at all.
+       Beats are inside the hero so they don't need updating either. */
+    if (!heroInView) return;
 
     /* Snap raw frame index to the nearest loaded step so the scroll
        maps onto frames we actually have in memory. */

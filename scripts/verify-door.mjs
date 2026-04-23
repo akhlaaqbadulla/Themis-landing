@@ -46,18 +46,30 @@ for (const t of TIERS) {
   const maxSc = info.heroPx - info.vpH;
 
   const positions = [
-    { tag: '00-start', y: 0 },
-    { tag: '25-pct',  y: Math.round(maxSc * 0.25) },
-    { tag: '50-pct',  y: Math.round(maxSc * 0.50) },
-    { tag: '85-pct',  y: Math.round(maxSc * 0.85) },
+    { tag: '00-start',   y: 0 },
+    { tag: '25-pct',     y: Math.round(maxSc * 0.25) },
+    { tag: '50-pct',     y: Math.round(maxSc * 0.50) },
+    { tag: '75-pct',     y: Math.round(maxSc * 0.75) },
+    { tag: '90-pct',     y: Math.round(maxSc * 0.90) },
+    { tag: '100-handoff', y: Math.round(maxSc * 1.00) },
+    { tag: '110-after',  y: Math.round(maxSc * 1.00 + info.vpH * 0.4) },
   ];
 
   for (const p of positions) {
     await page.evaluate(y => window.scrollTo(0, y), p.y);
-    await page.waitForTimeout(500); /* rAF + draw */
+    await page.waitForTimeout(1800); /* rAF + draw + statue transition (1.4s) */
+    const diag = await page.evaluate(() => {
+      const s = document.querySelector('.themis');
+      const canvas = document.getElementById('canvas-sticky');
+      return {
+        classes: document.body.className,
+        statueOpacity: s ? getComputedStyle(s).opacity : 'n/a',
+        canvasOpacity: canvas ? canvas.style.opacity || getComputedStyle(canvas).opacity : 'n/a',
+      };
+    });
     const name = `${t.name}_${p.tag}.png`;
     await page.screenshot({ path: resolve(OUT, name) });
-    console.log(`${t.name.padEnd(20)} scrollY=${p.y.toString().padStart(5)}  ${name}`);
+    console.log(`${t.name.padEnd(20)} scrollY=${p.y.toString().padStart(5)}  canv=${String(diag.canvasOpacity).padStart(5)}  statue=${String(diag.statueOpacity).padStart(5)}  body="${diag.classes}"  ${name}`);
   }
 
   await page.close();
