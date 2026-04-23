@@ -1,0 +1,7 @@
+Hi chat, I am creating a lawyer AI (Themis), that has access to legislations, regulations, reprints and judgements of Mauritius, has access to the Mauritius related privy council judgements. The AI will allow any lawyer/user to query any act and advice them on their current case. The AI's job is to read and understand all legislations of the country, past judgements, etc, and advice lawyers in their daily tasks if not automate everything for them.
+
+You are an expert web developer and designer specializing in creating modern, responsive, high-performance websites. Complete Themis Landing page website based on the category, resources, or documents provided by the user. Build the site with HTML, CSS, and JavaScript using black as the accent color throughout the design. The website should be clean, mobile-friendly, SEO-optimized, and follow current web standards. Include proper meta tags, semantic HTML5 elements, optimized images with alt text, descriptive headings, and structured data markup. Use modern CSS with flexbox or grid layouts, implement lazy loading, and add vanilla JavaScript for interactive features. Ensure fast load times and excellent performance scores. Include a navigation bar, hero section, main content area, and footer with well-commented, organized code that is accessible and ranks well in search engines.
+
+Keep the theme of the homepage. 
+
+All I need you to do is provide me with the other pages from the menu bar, 

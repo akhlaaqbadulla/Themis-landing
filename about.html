@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Themis — About | AI Legal Assistant for Mauritius</title>
+
+    <!-- Core SEO -->
+    <meta name="description" content="Learn how Themis is transforming legal research in Mauritius with AI trained on the full corpus of Acts, Regulations, and Supreme Court judgments.">
+    <meta name="keywords" content="about Themis, AI legal assistant, Mauritius law, legal AI, The AI Company">
+    <meta name="author" content="The AI Company">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://themis.the-company.ai/about.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Themis — About | AI Legal Assistant for Mauritius">
+    <meta property="og:description" content="Learn how Themis is transforming legal research in Mauritius with AI trained on the full corpus of Acts, Regulations, and Supreme Court judgments.">
+    <meta property="og:url" content="https://themis.the-company.ai/about.html">
+    <meta property="og:site_name" content="Themis AI">
+    <meta property="og:image" content="https://themis.the-company.ai/marble_bg.png">
+    <meta property="og:locale" content="en_MU">
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Themis — About | AI Legal Assistant for Mauritius">
+    <meta name="twitter:description" content="Learn how Themis is transforming legal research in Mauritius with AI trained on the full corpus of Acts, Regulations, and Supreme Court judgments.">
+    <meta name="twitter:image" content="https://themis.the-company.ai/marble_bg.png">
+
+    <!-- Preconnect hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Glass Nav -->
+    <header class="glass-nav">
+        <nav class="nav-links center">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="workflows.html">Workflows</a>
+            <a href="why-themis.html">Why Themis?</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="page-bg">
+        <!-- background elements -->
+        <div class="fixed-background">
+            <!-- Gavel video — behind clouds, above marble -->
+            <video class="gavel-video" autoplay muted loop playsinline>
+                <source src="gavel.mp4" type="video/mp4">
+            </video>
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <div class="frosted-bg"></div>
+        </div>
+
+        <div class="content-container">
+            <h1 class="page-title ios-reveal">Intelligence, Redefined.</h1>
+
+            <div class="glass-card ios-reveal delay-100">
+                <h2>Who is Themis?</h2>
+                <p>Themis is a cutting-edge AI legal researcher designed specifically for the Mauritian legal system. By
+                    leveraging advanced natural language processing and a comprehensive database of legislations,
+                    regulations, and Privy Council judgments, Themis empowers lawyers to retrieve accurate legal advice
+                    in seconds.</p>
+                <p>Named after the Greek Titaness of divine law and order, Themis brings objectivity and precision to
+                    legal research, automating the tedious parts of case preparation so professionals can focus on
+                    strategy and advocacy.</p>
+            </div>
+
+            <div class="glass-card ios-reveal delay-200">
+                <h2>Our Mission</h2>
+                <p>To democratize access to legal intelligence and streamline the workflow of legal professionals in
+                    Mauritius. We believe that technology should serve justice, making it faster, more accessible, and
+                    more accurate.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="glass-card ios-reveal">
+                    <h3>Comprehensive Database</h3>
+                    <p>Instant access to all Acts of Parliament, Regulations, and Supreme Court Judgments of Mauritius,
+                        updated in real-time.</p>
+                </div>
+                <div class="glass-card ios-reveal delay-100">
+                    <h3>Intelligent Analysis</h3>
+                    <p>Themis doesn't just search; it understands. Get summaries, case relevance scoring, and strategic
+                        recommendations based on precedent.</p>
+                </div>
+                <div class="glass-card ios-reveal delay-200">
+                    <h3>Secure & Private</h3>
+                    <p>Your case data is encrypted and handled with the highest standards of confidentiality, ensuring
+                        client privilege is never compromised.</p>
+                </div>
+            </div>
+
+            <div class="glass-card ios-reveal" style="text-align: center; margin-top: 2rem;">
+                <h2>Ready to transform your practice?</h2>
+                <p>Join the future of law today.</p>
+                <br>
+                <a href="contact.html" class="accent-btn" style="text-decoration: none;">Get Started</a>
+            </div>
+
+            <footer class="footer-simple ios-reveal delay-300">
+                &copy; 2025 Themis AI Research Counsel. Port Louis, Mauritius.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // === IOS SCROLL REVEAL ANIMATION ===
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.ios-reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

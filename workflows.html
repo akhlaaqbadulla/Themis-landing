@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Themis — Workflows | AI-Powered Legal Research</title>
+
+    <!-- Core SEO -->
+    <meta name="description" content="See how Themis fits into your practice — from legislation retrieval and case law analysis to strategic memos and reporting.">
+    <meta name="keywords" content="legal research workflow, AI legal research, case law analysis, Mauritius legislation, legal memos, Themis AI">
+    <meta name="author" content="The AI Company">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://themis.the-company.ai/workflows.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Themis — Workflows | AI-Powered Legal Research">
+    <meta property="og:description" content="See how Themis fits into your practice — from legislation retrieval and case law analysis to strategic memos and reporting.">
+    <meta property="og:url" content="https://themis.the-company.ai/workflows.html">
+    <meta property="og:site_name" content="Themis AI">
+    <meta property="og:image" content="https://themis.the-company.ai/marble_bg.png">
+    <meta property="og:locale" content="en_MU">
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Themis — Workflows | AI-Powered Legal Research">
+    <meta name="twitter:description" content="See how Themis fits into your practice — from legislation retrieval and case law analysis to strategic memos and reporting.">
+    <meta name="twitter:image" content="https://themis.the-company.ai/marble_bg.png">
+
+    <!-- Preconnect hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Glass Nav -->
+    <header class="glass-nav">
+        <nav class="nav-links center">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="workflows.html" class="active">Workflows</a>
+            <a href="why-themis.html">Why Themis?</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="page-bg">
+        <!-- background elements -->
+        <div class="fixed-background">
+            <!-- Gavel video — behind clouds, above marble -->
+            <video class="gavel-video" autoplay muted loop playsinline>
+                <source src="gavel.mp4" type="video/mp4">
+            </video>
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <div class="frosted-bg"></div>
+        </div>
+
+        <div class="content-container">
+            <h1 class="page-title ios-reveal">Seamless Workflow</h1>
+
+
+            <div class="glass-card ios-reveal delay-200">
+                <h2>1. Legislation Retrieval</h2>
+                <p>Themis scans the entire corpus of Mauritian laws, including the latest amendments. It
+                    cross-references Regulations and Acts to ensure the advice is current.</p>
+            </div>
+
+            <div class="glass-card ios-reveal">
+                <h2>2. Case Law Analysis</h2>
+                <p>It searches relevant judgments from the Supreme Court and the Privy Council. It identifies binding
+                    precedents and distinguishes cases based on facts provided.</p>
+            </div>
+
+            <div class="glass-card ios-reveal delay-100">
+                <h2>3. Strategic Advice</h2>
+                <p>Themis synthesizes the information into a coherent memo, outlining the legal position, potential
+                    arguments, and recommended course of action.</p>
+            </div>
+
+            <div class="glass-card ios-reveal delay-100">
+                <h2>4. Reporting</h2>
+                <p>Themis provides a detailed report of the legal position, potential arguments, and recommended course
+                    of action.
+                    all that in your company's document format. With your custom letterheaders, letterfooters, and
+                    company logo.
+                </p>
+            </div>
+
+            <div class="glass-card ios-reveal delay-200" style="margin-top: 3rem;">
+                <h2>Workflow Integration</h2>
+                <p>Themis integrates seamlessly into your daily tasks.</p>
+                <ul style="margin-left: 1.5rem; margin-top: 1rem; line-height: 1.8;">
+                    <li><strong>Document Review:</strong> Upload contracts or pleadings for instant review.</li>
+                    <li><strong>Drafting:</strong> Generate legal notices and court documents based on templates.</li>
+                    <li><strong>Research:</strong> Reduce hours of library research to minutes of AI processing.</li>
+                </ul>
+            </div>
+
+            <footer class="footer-simple ios-reveal delay-300">
+                &copy; 2025 Themis AI Research Counsel. Port Louis, Mauritius.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // === IOS SCROLL REVEAL ANIMATION ===
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.ios-reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

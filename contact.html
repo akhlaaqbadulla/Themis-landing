@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Themis | Request Early Access</title>
+
+    <!-- Core SEO -->
+    <meta name="description" content="Join the future of Mauritian legal practice. Request early access to Themis, the AI research counsel built for Mauritius law.">
+    <meta name="keywords" content="contact Themis, request access, legal AI demo, Mauritius law firm, early access, The AI Company">
+    <meta name="author" content="The AI Company">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://themis.the-company.ai/contact.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact Themis | Request Early Access">
+    <meta property="og:description" content="Join the future of Mauritian legal practice. Request early access to Themis, the AI research counsel built for Mauritius law.">
+    <meta property="og:url" content="https://themis.the-company.ai/contact.html">
+    <meta property="og:site_name" content="Themis AI">
+    <meta property="og:image" content="https://themis.the-company.ai/marble_bg.png">
+    <meta property="og:locale" content="en_MU">
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Themis | Request Early Access">
+    <meta name="twitter:description" content="Join the future of Mauritian legal practice. Request early access to Themis, the AI research counsel built for Mauritius law.">
+    <meta name="twitter:image" content="https://themis.the-company.ai/marble_bg.png">
+
+    <!-- Preconnect hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Glass Nav -->
+    <header class="glass-nav">
+        <nav class="nav-links center">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="workflows.html">Workflows</a>
+            <a href="why-themis.html">Why Themis?</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+    </header>
+
+    <div class="page-bg">
+        <!-- background elements -->
+        <div class="fixed-background">
+            <!-- Gavel video — behind clouds, above marble -->
+            <video class="gavel-video" autoplay muted loop playsinline>
+                <source src="gavel.mp4" type="video/mp4">
+            </video>
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="cloud" class="cloud">
+            <div class="frosted-bg"></div>
+        </div>
+
+        <div class="content-container" style="max-width: 800px;">
+            <h1 class="page-title ios-reveal">Join the Future</h1>
+
+            <div class="glass-card ios-reveal delay-100">
+                <h2>Request Early Access</h2>
+                <p>Themis is currently in private beta. Contact us to schedule a demo.</p>
+
+                <form class="contact-form"
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSfIb6uL1V_BiWZQpyIggoxMrBONCHJnCcgf_Q1nwnlKewU60w/formResponse"
+                    method="POST" target="hidden_iframe" onsubmit="submitForm();">
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="entry.2092238618" class="form-control" placeholder="John Doe"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="entry.1556369182" class="form-control"
+                            placeholder="john@lawfirm.mu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firm">Law Firm / Organization</label>
+                        <input type="text" id="firm" name="entry.479301265" class="form-control"
+                            placeholder="Chambers of ..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="entry.1647399930" class="form-control" rows="5"
+                            placeholder="Tell us about your needs..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="accent-btn" style="width: 100%;">Send Message</button>
+
+                    <div id="success-message"
+                        style="display: none; margin-top: 20px; padding: 15px; background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; border-radius: 8px; color: #4CAF50; text-align: center;">
+                        ✓ Message sent successfully! We'll get back to you soon.
+                    </div>
+                </form>
+
+                <!-- Hidden iframe for silent form submission -->
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+            </div>
+
+            <div class="glass-card ios-reveal delay-200" style="text-align: center;">
+                <p>Email: <a href="mailto:contact@themis.mu"
+                        style="color: var(--accent-color); font-weight: bold; text-decoration: none;">contact@the-company.ai</a>
+                </p>
+                <p>Port Louis, Mauritius</p>
+            </div>
+
+            <footer class="footer-simple ios-reveal delay-300">
+                &copy; 2025 Themis AI Research Counsel. Port Louis, Mauritius.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // === GOOGLE FORM SUBMISSION HANDLER ===
+        function submitForm() {
+            // Show success message after a brief delay to allow form submission
+            setTimeout(() => {
+                document.getElementById('success-message').style.display = 'block';
+                document.querySelector('.contact-form').reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('success-message').style.display = 'none';
+                }, 5000);
+            }, 500);
+
+            return true; // Allow form to submit to Google Forms
+        }
+
+        // === IOS SCROLL REVEAL ANIMATION ===
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.ios-reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

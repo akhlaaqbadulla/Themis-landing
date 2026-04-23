@@ -1,0 +1,131 @@
+ACT AS:
+ A world-class Creative Developer (Awwwards-level) specializing in Next.js, Framer Motion, and high-performance scrollytelling.
+
+THE TASK
+Build a high-end “Scrollytelling” landing page for my Themis AI legal research assistant.
+The core mechanic is a scroll-linked animation that plays an image sequence of the gates of Olympus opening as the user reaches the end of the scroll.
+
+TECH STACK
+Framework: Next.js 14 (App Router)
+
+
+Styling: Tailwind CSS
+
+
+Animation: Framer Motion
+
+
+Rendering: HTML5 Canvas (for performance)
+
+
+VISUAL DIRECTION (Fog / Editorial Light Theme)
+
+Seamless Blending: The website background MUST match the fog/mist background of the image sequence exactly so the edges of frames are invisible.
+
+Background Color: Use an eyedropped fog color (example: #ECECEC / #E6E6E6). The exact value should match the frames.
+
+Typography: Inter or San Francisco. Minimal, tracking-tight.
+
+Text Color: Because the page is light:
+
+Headings: text-black/90
+Body: text-black/60
+
+Aesthetic: Premium editorial hardware. Clean, quiet, high-end. No noisy gradients. No unnecessary UI clutter.
+
+IMPLEMENTATION DETAILS
+1) The Sticky Canvas
+
+Create a component: components/Gates.tsx
+
+Outer container: h-[400vh] to create a long scroll.
+
+Inside: a <canvas> that is:
+
+sticky top-0 h-screen w-full
+perfectly centered
+
+Canvas should render frames sharply (handle devicePixelRatio).
+
+Concept: The canvas renders a Gates of Olympus stone gate sequence that opens progressively as the user scrolls.
+
+2) Image Sequence Loading
+
+Load a sequence of 120 images (0 → 119) exported from ezgif-split.
+
+Naming convention:
+frame_[i]_delay-0.04s.webp
+
+Preload all images before playing to avoid flicker.
+
+Show a loading spinner/progress indicator until enough frames are ready (ideally all frames).
+
+3) Scroll → Frame Mapping (Correct + Smooth)
+
+Use useScroll from Framer Motion to map scroll progress (0 → 1) to frame index (0 → 119).
+
+On scroll:
+
+compute current frame index
+draw the image to canvas using requestAnimationFrame
+clamp frame index and avoid redundant draws to reduce jank
+
+Canvas draw behavior:
+Use a “contain” fit so the gates stay fully visible across screen sizes.
+
+Keep consistent positioning so the structure doesn’t jump between frames.
+
+Recalculate canvas size on resize.
+
+4) Story Text Overlays (Timed Fade In/Out)
+
+Overlay text sections that fade in/out as the gates open.
+
+Use these exact beats:
+
+0% Scroll (Closed State - Centered):
+“Gates of Olympus.”
+subtext: “The seal before divine motion.”
+
+25% Scroll (First Movement - Left aligned):
+“The Awakening.”
+subtext: “Ancient stone begins to yield.”
+
+60% Scroll (Divine Mechanism - Right aligned):
+“Layered Engineering.”
+subtext: “The structure responds to force.”
+
+90% Scroll (Fully Open - Centered CTA):
+“Assembled. Ready.”
+subtext: “Scroll back to replay.”
+
+Text styling rules:
+Keep type large, minimal, and spaced.
+
+Use subtle fade + slight translate (like y: 10px → 0px).
+
+Never block the central gates visual; keep overlays out of the main focal area.
+
+5) Polish Requirements
+
+Loading state: centered spinner + “Loading Gates of Olympus sequence…” (subtle).
+
+Smoothness:
+
+avoid stutter
+avoid flashing backgrounds
+avoid layout shift
+
+Mobile:
+
+Canvas should scale and keep gates fully visible (contain fit)
+Text overlays should reposition gracefully (no overlap)
+OUTPUT
+
+Generate the full code for:
+
+app/page.tsx
+components/Gates.tsx
+app/globals.css
+
+Use nano banana to generate any UI components if needed, but keep the UI minimal.
