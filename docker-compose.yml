@@ -1,0 +1,21 @@
+services:
+  themis-landing:
+    build: .
+    image: themis-landing:latest
+    container_name: themis-landing
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.themis-landing.rule=Host(`the-company.ai`)"
+      - "traefik.http.routers.themis-landing.entrypoints=websecure"
+      - "traefik.http.routers.themis-landing.tls=true"
+      - "traefik.http.routers.themis-landing.tls.certresolver=le"
+      - "traefik.http.services.themis-landing.loadbalancer.server.port=3000"
+      - "traefik.http.routers.themis-landing.middlewares=secHeaders@file,gzip_compress@file"
+    networks:
+      - traefik_net
+
+networks:
+  traefik_net:
+    name: project-themis_themis_net
+    external: true

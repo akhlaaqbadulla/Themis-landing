@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0d3d36">
+    <meta name="color-scheme" content="light">
     <title>Themis — About | AI Legal Assistant for Mauritius</title>
 
     <!-- Core SEO -->
@@ -41,7 +43,11 @@
 
     <!-- Glass Nav -->
     <header class="glass-nav">
-        <nav class="nav-links center">
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+        <label for="nav-toggle" class="nav-burger" role="button" tabindex="0" aria-label="Toggle navigation" aria-controls="nav-menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </label>
+        <nav class="nav-links center" id="nav-menu">
             <a href="index.html">Home</a>
             <a href="about.html" class="active">About</a>
             <a href="workflows.html">Workflows</a>
@@ -57,11 +63,11 @@
             <video class="gavel-video" autoplay muted loop playsinline>
                 <source src="gavel.mp4" type="video/mp4">
             </video>
-            <img src="cloud.png" alt="cloud" class="cloud">
-            <img src="cloud.png" alt="cloud" class="cloud">
-            <img src="cloud.png" alt="cloud" class="cloud">
-            <img src="cloud.png" alt="cloud" class="cloud">
-            <img src="cloud.png" alt="cloud" class="cloud">
+            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
             <div class="frosted-bg"></div>
         </div>
 
@@ -136,6 +142,24 @@
         document.querySelectorAll('.ios-reveal').forEach(el => {
             observer.observe(el);
         });
+
+        // === HAMBURGER NAV (close on link tap + Esc, a11y state) ===
+        (function () {
+            const toggle = document.getElementById('nav-toggle');
+            const burger = document.querySelector('.nav-burger');
+            if (!toggle) return;
+            const setExpanded = () => burger && burger.setAttribute('aria-expanded', toggle.checked);
+            toggle.addEventListener('change', setExpanded);
+            document.querySelectorAll('#nav-menu a').forEach(a =>
+                a.addEventListener('click', () => { toggle.checked = false; setExpanded(); })
+            );
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && toggle.checked) { toggle.checked = false; setExpanded(); }
+            });
+            if (burger) burger.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.checked = !toggle.checked; setExpanded(); }
+            });
+        })();
     </script>
 </body>
 

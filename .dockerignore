@@ -1,0 +1,15 @@
+.git
+.github
+.gitignore
+.claude
+.cursor
+Prompts/
+promt.txt
+My 3d scroll prompt.txt
+Why Themis page promt.txt
+The Legal Research Crisis.txt
+Dockerfile
+.dockerignore
+docker-compose.yml
+CLAUDE.md
+README.md

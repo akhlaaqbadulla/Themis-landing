@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d3d36">
+  <meta name="color-scheme" content="light">
   <title>Themis — Your AI Research Counsel for Mauritius Law</title>
 
   <!-- SEO -->
@@ -29,6 +31,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Preload first scrollytelling frame for fast LCP -->
+  <link rel="preload" as="image" href="GatesWebP/00001.webp" fetchpriority="high">
 
   <!-- Existing site styles -->
   <link rel="stylesheet" href="style.css">
@@ -672,25 +677,137 @@
     }
     .section-cta:hover { border-color: #0d3d36; opacity: 0.75; }
 
-    /* ── Mobile ─────────────────────────────────────────── */
-    @media (max-width: 640px) {
-      #beat-1 { left: 5%; max-width: 78vw; text-align: left; }
-      #beat-2 { right: auto; left: 5%; text-align: left; max-width: 78vw; }
-      .knowledge-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .ai-box.interactive { width: clamp(160px,70vw,260px); height: auto; min-height: 220px; }
-      #demo { padding: 3rem 0 1rem !important; }
-      .content-container { padding: 1.25rem; }
-      .glass-card { padding: 1.5rem; }
+    /* ── Strengthen cards over marble (readability) ───────── */
+    .knowledge-card {
+      background: rgba(255,255,255,0.78);
+      border-color: rgba(255,255,255,0.9);
+    }
+    .knowledge-card:hover {
+      background: rgba(255,255,255,0.88);
+    }
+    .trust-tile {
+      background: rgba(255,255,255,0.72);
+      border-color: rgba(255,255,255,0.85);
+    }
 
-      .stats-ticker-grid { grid-template-columns: repeat(2,1fr); }
-      .stats-ticker-grid .stat-item:last-child { grid-column: 1 / -1; border-right: none; }
-      .problem-grid { grid-template-columns: 1fr; }
-      .workflow-timeline { flex-direction: column; }
+    /* ── Canvas sharpness on hi-DPI ───────────────────────
+       On landscape viewports (≥4:3), cap the hero canvas to
+       the source aspect ratio (16:9). This stops upscaling the
+       1280×720 frames to full viewport on Retina laptops. The
+       clamp doesn't apply on portrait phones, where canvas
+       keeps full viewport height.                             */
+    @media (min-aspect-ratio: 4/3) {
+      #canvas-sticky {
+        max-height: min(100vh, calc(100vw * 9 / 16));
+      }
+    }
+    #gates-canvas {
+      filter: contrast(1.02) saturate(1.03);
+    }
+
+    /* ── Comparison table: stacked cards on phones ────────
+       Every <td> carries data-label="Column Header" which
+       becomes the row label via ::before. Each <tr> renders
+       as a bordered card instead of a wide row.             */
+    @media (max-width: 640px) {
+      .comparison-table,
+      .comparison-table thead,
+      .comparison-table tbody,
+      .comparison-table tr,
+      .comparison-table td,
+      .comparison-table th {
+        display: block;
+        width: 100%;
+      }
+      .comparison-table thead { display: none; }
+      .comparison-table tr {
+        background: rgba(255,255,255,0.55);
+        border: 1px solid rgba(255,255,255,0.8);
+        border-radius: 14px;
+        padding: 0.85rem 1rem;
+        margin-bottom: 0.85rem;
+      }
+      .comparison-table td {
+        padding: 0.45rem 0;
+        border: none;
+        font-size: 0.92rem;
+        line-height: 1.45;
+      }
+      .comparison-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.45);
+        margin-bottom: 0.2rem;
+      }
+      .comparison-table td:first-child {
+        font-weight: 700;
+        color: #0d3d36;
+        font-size: 0.98rem;
+        padding-bottom: 0.65rem;
+        margin-bottom: 0.3rem;
+        border-bottom: 1px solid rgba(13,61,54,0.12);
+      }
+      .comparison-table td:first-child::before { display: none; }
+      .comparison-table td:nth-child(2),
+      .comparison-table td:nth-child(3) { color: inherit !important; }
+    }
+
+    /* ── Intermediate breakpoints (phones → tablets → laptops) ── */
+    @media (max-width: 479px) {
+      #beat-1 { left: 5%; max-width: 82vw; text-align: left; }
+      #beat-2 { right: auto; left: 5%; text-align: left; max-width: 82vw; }
+      .knowledge-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .ai-box.interactive { width: clamp(180px,75vw,280px); height: auto; min-height: 220px; }
+      #demo { padding: 3rem 0 1rem !important; }
+      .glass-card { padding: 1.25rem; }
+      .stats-ticker-grid { grid-template-columns: repeat(2, 1fr); padding: 0 1rem; gap: 1rem 0; }
+      .stats-ticker-grid .stat-item:nth-child(odd) { border-right: 1px solid rgba(13,61,54,0.12); }
+      .stats-ticker-grid .stat-item:nth-child(even) { border-right: none; }
+      .stats-ticker-grid .stat-item:last-child { grid-column: 1 / -1; border-right: none; padding-top: 0.5rem; border-top: 1px solid rgba(13,61,54,0.12); }
+      .problem-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .workflow-timeline { flex-direction: column; gap: 1rem; }
       .workflow-arrow { display: none; }
       .pricing-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
-      .hero-cta-row { flex-direction: column; align-items: center; }
-      .comparison-table { font-size: 0.8rem; }
+      .hero-cta-row { flex-direction: column; align-items: stretch; }
+      .hero-cta-row > a { width: 100%; }
+      .pricing-badge { top: -11px; font-size: 0.62rem; }
+    }
+
+    @media (min-width: 480px) and (max-width: 767px) {
+      .knowledge-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-ticker-grid { grid-template-columns: repeat(2, 1fr); padding: 0 1.5rem; }
+      .stats-ticker-grid .stat-item { border-right: 1px solid rgba(13,61,54,0.12); padding: 0.75rem 1rem; }
+      .stats-ticker-grid .stat-item:nth-child(2n) { border-right: none; }
+      .stats-ticker-grid .stat-item:last-child { grid-column: 1 / -1; border-right: none; padding-top: 1rem; border-top: 1px solid rgba(13,61,54,0.12); }
+      .problem-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .workflow-timeline { flex-direction: column; gap: 1rem; }
+      .workflow-arrow { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .trust-tiles-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .stats-ticker-grid { grid-template-columns: repeat(3, 1fr); padding: 0 2rem; row-gap: 1.25rem; }
+      .stats-ticker-grid .stat-item:nth-child(3n) { border-right: none; }
+      .stats-ticker-grid .stat-item:nth-child(n+4) { padding-top: 1rem; }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid > *:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; }
+      .trust-tiles-grid { grid-template-columns: repeat(2, 1fr); }
+      .problem-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .workflow-timeline { gap: 0.5rem; }
+      .workflow-arrow { font-size: 1.2rem; margin-top: 2.5rem; }
+    }
+
+    @media (max-width: 767px) {
+      .beat-h { font-size: clamp(20px, 8vw, 34px); }
+      .beat-s { font-size: clamp(11px, 3vw, 13px); }
     }
   </style>
 </head>
@@ -713,23 +830,26 @@
 
 <!-- ── Fixed background (marble, clouds, themis, frosted) ── -->
 <!-- z-index: -1 from style.css — hidden behind canvas during hero, revealed after -->
-<div class="fixed-background">
-  <video class="gavel-video" autoplay muted loop playsinline>
+<div class="fixed-background" aria-hidden="true">
+  <video class="gavel-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
     <source src="gavel.mp4" type="video/mp4">
   </video>
-  <img src="cloud.png" alt="" class="cloud">
-  <img src="cloud.png" alt="" class="cloud">
-  <img src="cloud.png" alt="" class="cloud">
-  <img src="cloud.png" alt="" class="cloud">
-  <img src="cloud.png" alt="" class="cloud">
-  <!-- out-of-hero makes it opacity:1 from the start -->
-  <img src="themis.png" alt="Themis" class="themis themis-png out-of-hero">
+  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+  <img src="themis.png" alt="" class="themis themis-png out-of-hero" width="800" height="1200" decoding="async">
   <div class="frosted-bg"></div>
 </div>
 
 <!-- ── Glass Nav ────────────────────────────────────────── -->
 <header class="glass-nav">
-  <nav class="nav-links center">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-burger" role="button" tabindex="0" aria-label="Toggle navigation" aria-controls="nav-menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </label>
+  <nav class="nav-links center" id="nav-menu">
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About</a>
     <a href="workflows.html">Workflows</a>
@@ -1002,49 +1122,49 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Mauritius law training</td>
-                  <td class="cross">✗ General knowledge only</td>
-                  <td class="check">✓ Exclusive corpus</td>
+                  <td data-label="Feature">Mauritius law training</td>
+                  <td class="cross" data-label="Generic AI">✗ General knowledge only</td>
+                  <td class="check" data-label="Themis">✓ Exclusive corpus</td>
                 </tr>
                 <tr>
-                  <td>Judgment database</td>
-                  <td class="cross">✗ None</td>
-                  <td class="check">✓ 57,000+ judgments</td>
+                  <td data-label="Feature">Judgment database</td>
+                  <td class="cross" data-label="Generic AI">✗ None</td>
+                  <td class="check" data-label="Themis">✓ 57,000+ judgments</td>
                 </tr>
                 <tr>
-                  <td>Acts &amp; Regulations</td>
-                  <td class="cross">✗ Not current</td>
-                  <td class="check">✓ 4,100+ Acts · 17,800+ Regs</td>
+                  <td data-label="Feature">Acts &amp; Regulations</td>
+                  <td class="cross" data-label="Generic AI">✗ Not current</td>
+                  <td class="check" data-label="Themis">✓ 4,100+ Acts · 17,800+ Regs</td>
                 </tr>
                 <tr>
-                  <td>Accuracy for Mauritius law</td>
-                  <td class="cross">✗ Unreliable</td>
-                  <td class="check">✓ 99.22% verified accuracy</td>
+                  <td data-label="Feature">Accuracy for Mauritius law</td>
+                  <td class="cross" data-label="Generic AI">✗ Unreliable</td>
+                  <td class="check" data-label="Themis">✓ 99.22% verified accuracy</td>
                 </tr>
                 <tr>
-                  <td>Source citations</td>
-                  <td class="cross">✗ Often fabricated</td>
-                  <td class="check">✓ Every answer cited</td>
+                  <td data-label="Feature">Source citations</td>
+                  <td class="cross" data-label="Generic AI">✗ Often fabricated</td>
+                  <td class="check" data-label="Themis">✓ Every answer cited</td>
                 </tr>
                 <tr>
-                  <td>Hallucination risk</td>
-                  <td class="cross">✗ High</td>
-                  <td class="check">✓ Minimised by design</td>
+                  <td data-label="Feature">Hallucination risk</td>
+                  <td class="cross" data-label="Generic AI">✗ High</td>
+                  <td class="check" data-label="Themis">✓ Minimised by design</td>
                 </tr>
                 <tr>
-                  <td>Client data training</td>
-                  <td class="cross">✗ May train on your data</td>
-                  <td class="check">✓ Your data never used</td>
+                  <td data-label="Feature">Client data training</td>
+                  <td class="cross" data-label="Generic AI">✗ May train on your data</td>
+                  <td class="check" data-label="Themis">✓ Your data never used</td>
                 </tr>
                 <tr>
-                  <td>Jurisdiction-specific</td>
-                  <td class="cross">✗ Global, unfocused</td>
-                  <td class="check">✓ Mauritius only</td>
+                  <td data-label="Feature">Jurisdiction-specific</td>
+                  <td class="cross" data-label="Generic AI">✗ Global, unfocused</td>
+                  <td class="check" data-label="Themis">✓ Mauritius only</td>
                 </tr>
                 <tr>
-                  <td>Court-ready formatting</td>
-                  <td class="cross">✗ Requires manual work</td>
-                  <td class="check">✓ Memo-ready output</td>
+                  <td data-label="Feature">Court-ready formatting</td>
+                  <td class="cross" data-label="Generic AI">✗ Requires manual work</td>
+                  <td class="check" data-label="Themis">✓ Memo-ready output</td>
                 </tr>
               </tbody>
             </table>
@@ -1253,13 +1373,32 @@
   var hero         = document.getElementById('gates-hero');
   var canvasSticky = document.getElementById('canvas-sticky');
 
-  /* Resize canvas to fill viewport */
+  /* Resize canvas to fill viewport
+     — hi-DPI aware: do NOT cap DPR on desktop (would blur Retina).
+     Only cap on very small screens to spare low-power GPUs. */
   function resizeCanvas() {
-    var dpr = window.devicePixelRatio || 1;
-    canvas.width  = Math.round(window.innerWidth  * dpr);
-    canvas.height = Math.round(window.innerHeight * dpr);
-    canvas.style.width  = window.innerWidth  + 'px';
-    canvas.style.height = window.innerHeight + 'px';
+    var rawDpr = window.devicePixelRatio || 1;
+    var isSmall = window.innerWidth < 480;
+    var dpr = isSmall ? Math.min(rawDpr, 1.75) : rawDpr;
+
+    /* CSS size tracks the sticky layer. On landscape viewports
+       (≥4:3) cap height to 16:9 of width so we never upscale the
+       1280×720 frames >1.35×. On portrait phones keep full vh. */
+    var cssW = window.innerWidth;
+    var isLandscape = cssW / window.innerHeight >= 4 / 3;
+    var cssH = isLandscape
+      ? Math.min(window.innerHeight, Math.round(cssW * 9 / 16))
+      : window.innerHeight;
+
+    canvas.width  = Math.ceil(cssW * dpr);
+    canvas.height = Math.ceil(cssH * dpr);
+    canvas.style.width  = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+
+    /* imageSmoothing resets when canvas size changes — set each resize. */
+    ctx.imageSmoothingEnabled = true;
+    if ('imageSmoothingQuality' in ctx) ctx.imageSmoothingQuality = 'high';
+
     if (ready && frames[Math.max(0, curIdx)]) drawFrame(frames[Math.max(0, curIdx)]);
   }
 
@@ -1388,21 +1527,30 @@ function submitAccessRequest() {
   return true;
 }
 
-/* ── 3D card tilt ───────────────────────────────────────── */
+/* ── Reduced-motion guard (shared) ──────────────────────── */
+var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── 3D card tilt — mouse + touch, motion-safe ──────────── */
 var card = document.querySelector('.ai-box.interactive');
 var heroSection = document.querySelector('#home');
 var rotX = 0, rotY = 0, targetX = 0, targetY = 0;
-if (card && heroSection) {
-  heroSection.addEventListener('mousemove', function(e) {
-    var x = e.clientX - window.innerWidth / 2;
-    var y = e.clientY - window.innerHeight / 2;
+if (card && heroSection && !prefersReduced) {
+  function applyPointer(clientX, clientY) {
+    var x = clientX - window.innerWidth / 2;
+    var y = clientY - window.innerHeight / 2;
     targetY = (x / window.innerWidth) * 20;
     targetX = (y / window.innerHeight) * -20;
     var rect = card.getBoundingClientRect();
-    card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-    card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
-  });
+    card.style.setProperty('--mx', (clientX - rect.left) + 'px');
+    card.style.setProperty('--my', (clientY - rect.top) + 'px');
+  }
+  heroSection.addEventListener('mousemove', function(e) { applyPointer(e.clientX, e.clientY); });
   heroSection.addEventListener('mouseleave', function() { targetX = 0; targetY = 0; });
+  heroSection.addEventListener('touchmove', function(e) {
+    if (!e.touches || !e.touches.length) return;
+    applyPointer(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  heroSection.addEventListener('touchend', function() { targetX = 0; targetY = 0; });
   (function animateCard() {
     rotX += (targetX - rotX) * 0.08;
     rotY += (targetY - rotY) * 0.08;
@@ -1411,14 +1559,45 @@ if (card && heroSection) {
   }());
 }
 
-/* ── Spotlight on glass/knowledge cards ─────────────────── */
+/* ── Spotlight on glass/knowledge/trust cards — mouse + touch ── */
 document.querySelectorAll('.glass-card, .knowledge-card, .trust-tile').forEach(function(c) {
-  c.addEventListener('mousemove', function(e) {
+  function setPointer(x, y) {
     var rect = c.getBoundingClientRect();
-    c.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-    c.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
-  });
+    c.style.setProperty('--mouse-x', (x - rect.left) + 'px');
+    c.style.setProperty('--mouse-y', (y - rect.top) + 'px');
+  }
+  c.addEventListener('mousemove', function(e) { setPointer(e.clientX, e.clientY); });
+  c.addEventListener('touchmove', function(e) {
+    if (!e.touches || !e.touches.length) return;
+    setPointer(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
 });
+
+/* ── Hamburger close on link tap + Esc key ──────────────── */
+(function () {
+  var toggle = document.getElementById('nav-toggle');
+  var burger = document.querySelector('.nav-burger');
+  if (!toggle) return;
+  function setExpanded() {
+    if (burger) burger.setAttribute('aria-expanded', toggle.checked ? 'true' : 'false');
+  }
+  toggle.addEventListener('change', setExpanded);
+  document.querySelectorAll('#nav-menu a').forEach(function (a) {
+    a.addEventListener('click', function () { toggle.checked = false; setExpanded(); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && toggle.checked) { toggle.checked = false; setExpanded(); }
+  });
+  if (burger) {
+    burger.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.checked = !toggle.checked;
+        setExpanded();
+      }
+    });
+  }
+})();
 
 /* ── iOS reveal (IntersectionObserver) ──────────────────── */
 var reveals = document.querySelectorAll('.ios-reveal');
@@ -1436,6 +1615,11 @@ if (reveals.length) {
 
 /* ── Counter animation for Stats Ticker ─────────────────── */
 function animateCounter(el, target, suffix, isDecimal) {
+  if (prefersReduced) {
+    var finalVal = isDecimal ? target.toFixed(2) : Math.floor(target);
+    el.textContent = Number(finalVal).toLocaleString() + suffix;
+    return;
+  }
   var start = performance.now();
   function step(now) {
     var t = Math.min((now - start) / 1200, 1);
