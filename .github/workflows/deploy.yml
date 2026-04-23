@@ -1,0 +1,40 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Serialise deploys so two pushes don't race the same directory.
+# cancel-in-progress: false — we don't want to abandon a half-done
+# docker compose; let the earlier run finish, queue the next.
+concurrency:
+  group: deploy-themis-landing
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, themis-landing]
+    timeout-minutes: 10
+    steps:
+      - name: Pull + build + restart container
+        working-directory: /home/ubuntu/Themis-landing
+        run: |
+          set -euo pipefail
+          echo "deploy sha=$GITHUB_SHA ref=$GITHUB_REF"
+          git fetch --quiet origin main
+          git reset --hard "$GITHUB_SHA"
+          docker compose build
+          docker compose up -d --remove-orphans
+
+      - name: Health check
+        run: |
+          set -eo pipefail
+          for i in $(seq 1 20); do
+            CODE=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 5 https://the-company.ai || echo '000')
+            echo "attempt $i → HTTP $CODE"
+            if [ "$CODE" = "200" ]; then exit 0; fi
+            sleep 2
+          done
+          echo "site did not return 200 within 40s"
+          exit 1
