@@ -37,7 +37,28 @@ python3 -m http.server 8080
 
 ## Known follow-up: hero image sharpness on Retina
 
-The `GatesWebP/` scrollytelling frames are currently 1280×720 (720p). On hi-DPI displays (MacBook Air 16", iPad Pro, etc.) the browser upscales them ~2× which softens the image. Code-side mitigations are in place (16:9 aspect clamp on the canvas, `imageSmoothingQuality: 'high'`, no DPR cap on desktop), but the ideal fix is to re-export the 192-frame sequence from the original 3D source at **2560×1440 (preferred) or 3840×2160**, WebP quality ~82, keeping each frame under ~180 KB / ~350 KB respectively. Drop the new frames into `GatesWebP/` with the same `00001.webp … 00192.webp` naming.
+The `GatesWebP/` scrollytelling frames are currently 1280×720 (720p). On hi-DPI displays (MacBook Air 16", iPad Pro, etc.) the browser upscales them ~2× which softens the image. Code-side mitigations are already in place (16:9 aspect clamp on the canvas, `imageSmoothingQuality: 'high'`, no DPR cap on desktop), but the real fix is to re-export the 192 frames at **2560×1440 (preferred) or 3840×2160**, WebP quality ~82.
+
+### Re-render script
+
+Use the dockerised helper — it needs no host install of ffmpeg or cwebp:
+
+```bash
+# From an MP4 master:
+./scripts/rerender-frames.sh /path/to/gates-olympus-master.mp4 1440
+
+# Or from a folder of hi-res PNG frames (lexicographic order):
+./scripts/rerender-frames.sh /path/to/source-frames/ 1440
+
+# For 4K:
+./scripts/rerender-frames.sh /path/to/source.mp4 2160
+```
+
+The script stages the output in `GatesWebP.new/`, verifies all 192 frames were produced, then swaps it in atomically (preserving the old frames at `GatesWebP.old-<timestamp>/` for rollback). After re-export:
+
+```bash
+docker compose build && docker compose up -d
+```
 
 ## Pages
 

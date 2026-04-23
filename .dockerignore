@@ -13,3 +13,9 @@ Dockerfile
 docker-compose.yml
 CLAUDE.md
 README.md
+scripts/
+node_modules/
+package.json
+package-lock.json
+GatesWebP.new/
+GatesWebP.old-*/

@@ -1,0 +1,15 @@
+{
+  "name": "themis-landing",
+  "version": "1.0.0",
+  "description": "Static landing site for Themis (AI legal research for Mauritius), served as a minimal container behind the shared Traefik proxy.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.57.0"
+  }
+}

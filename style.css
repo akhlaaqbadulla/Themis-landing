@@ -72,10 +72,10 @@ a {
 
 /* ── Marble background + readability overlay ──────────────────
    The marble is beautiful but too busy — we warm it down with a
-   cream overlay and a subtle brightness/saturation filter so body
-   copy always clears WCAG AA.                                   */
+   cream overlay and a light saturation filter so body copy always
+   clears WCAG AA, while keeping enough marble visible to give cards
+   real visual hierarchy when they sit on top.                  */
 .landing,
-.page-bg,
 .fixed-background {
     position: fixed;
     inset: 0;
@@ -83,7 +83,17 @@ a {
     background: url('marble_bg.png') no-repeat center center fixed;
     background-size: cover;
     pointer-events: none;
-    filter: brightness(1.06) saturate(0.82);
+    filter: saturate(0.9);
+}
+
+/* The .page-bg on secondary pages is a scrolling container, not a
+   decorative fixed layer — it must NOT share the fixed/-2 rules. */
+.page-bg {
+    display: block;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: clamp(80px, 11vh, 110px);
 }
 
 body::before {
@@ -92,21 +102,15 @@ body::before {
     inset: 0;
     z-index: -1;
     background: linear-gradient(180deg,
-            rgba(250, 248, 243, 0.40) 0%,
-            rgba(250, 248, 243, 0.62) 45%,
-            rgba(250, 248, 243, 0.72) 100%);
+            rgba(250, 248, 243, 0.22) 0%,
+            rgba(250, 248, 243, 0.38) 50%,
+            rgba(250, 248, 243, 0.48) 100%);
     pointer-events: none;
 }
 
 .scroll-container {
     position: relative;
     z-index: 2;
-}
-
-.page-bg {
-    display: block;
-    min-height: 100vh;
-    width: 100%;
 }
 
 /* ── Clouds ────────────────────────────────────────────────
@@ -437,7 +441,10 @@ body::before {
     padding: var(--pad-m);
     backdrop-filter: blur(18px) saturate(155%);
     -webkit-backdrop-filter: blur(18px) saturate(155%);
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.07);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.75) inset,
+        0 12px 32px rgba(13, 61, 54, 0.08),
+        0 2px 6px rgba(13, 61, 54, 0.05);
     margin-bottom: 1.5rem;
     color: #333;
     position: relative;
