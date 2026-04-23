@@ -1364,6 +1364,15 @@
   var penIdx = 0;
   var rafId  = null;
 
+  /* Mobile perf tiers — decided once at boot, no live resize re-tier:
+       phone (<480) : load only frame 0, no scroll-driven redraw
+       small (<640) : load every other frame (96 total)
+       else         : load all 192 frames                          */
+  var vpW = window.innerWidth;
+  var isPhone = vpW < 480;
+  var step = vpW < 640 ? 2 : 1;
+  var framesToLoad = isPhone ? 1 : Math.ceil(TOTAL / step);
+
   var canvas  = document.getElementById('gates-canvas');
   var ctx     = canvas.getContext('2d');
   var loading      = document.getElementById('loading');
@@ -1372,6 +1381,17 @@
   var hint         = document.getElementById('scroll-hint');
   var hero         = document.getElementById('gates-hero');
   var canvasSticky = document.getElementById('canvas-sticky');
+
+  /* Gate frame redraw to when the hero is actually on screen.
+     The hero div is 550vh; once scrolled past it there's nothing
+     to draw and the fixed canvas is already faded to pointer-
+     events:none via .past-hero — stop doing rAF work. */
+  var heroInView = true;
+  if ('IntersectionObserver' in window && hero) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { heroInView = e.isIntersecting; });
+    }, { rootMargin: '100px 0px' }).observe(hero);
+  }
 
   /* Resize canvas to fill viewport
      — hi-DPI aware: do NOT cap DPR on desktop (would blur Retina).
@@ -1416,21 +1436,24 @@
     ctx.drawImage(img, dx, dy, dw, dh);
   }
 
-  /* Preload — dismiss loading screen after first 30 frames, load rest in background */
-  var READY_THRESHOLD = 30;
+  /* Preload — tier-aware.
+     - phone  : load only frame 0 and unlock immediately
+     - small  : load every other frame (96 total)
+     - else   : load all 192, unlock after first 30 */
+  var READY_THRESHOLD = isPhone ? 1 : Math.min(30, framesToLoad);
   var earlyReady = false;
 
   function preload() {
-    for (var i = 0; i < TOTAL; i++) {
+    for (var i = 0; i < TOTAL; i += step) {
+      if (isPhone && i > 0) break;
       (function(idx) {
         var img = new Image();
         img.src = 'GatesWebP/' + String(idx + 1).padStart(5, '0') + '.webp';
         img.onload = img.onerror = function() {
           frames[idx] = (this.complete && this.naturalWidth) ? this : null;
           loaded++;
-          bar.style.width = Math.round((loaded / TOTAL) * 100) + '%';
-          pctEl.textContent = loaded + ' / ' + TOTAL;
-          // Unlock page after first READY_THRESHOLD frames are in
+          bar.style.width = Math.round((loaded / framesToLoad) * 100) + '%';
+          pctEl.textContent = loaded + ' / ' + framesToLoad;
           if (!earlyReady && loaded >= READY_THRESHOLD && frames[0]) {
             earlyReady = true;
             onReady();
@@ -1491,8 +1514,29 @@
       canvasSticky.classList.remove('past-hero');
     }
 
+    if (scrollY > 60) { hint.classList.add('hidden'); }
+    else              { hint.classList.remove('hidden'); }
+
+    /* Cheap bail-out: hero off-screen = no canvas work at all.
+       Beats are inside the hero so they don't need updating either. */
+    if (!heroInView) return;
+
     var progress = clamp(scrollY / maxSc, 0, 1);
-    penIdx = Math.min(TOTAL - 1, Math.floor(progress * TOTAL));
+    /* On phones we committed to a single frame — just keep beats
+       and skip the redraw path entirely. */
+    if (isPhone) {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(function () {
+        updateBeats(progress);
+        rafId = null;
+      });
+      return;
+    }
+
+    /* Snap raw frame index to the nearest loaded step so the scroll
+       maps onto frames we actually have in memory. */
+    var rawIdx = Math.floor(progress * TOTAL);
+    penIdx = Math.min(TOTAL - 1, Math.floor(rawIdx / step) * step);
 
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(function() {
@@ -1503,9 +1547,6 @@
       updateBeats(progress);
       rafId = null;
     });
-
-    if (scrollY > 60) { hint.classList.add('hidden'); }
-    else              { hint.classList.remove('hidden'); }
   }
 
   resizeCanvas();
