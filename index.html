@@ -18,12 +18,12 @@
   <meta property="og:description" content="AI-powered legal research for Mauritian lawyers. Search the full corpus of Acts, Regulations, and Supreme Court judgments in seconds.">
   <meta property="og:url" content="https://themis.the-company.ai/">
   <meta property="og:site_name" content="Themis AI">
-  <meta property="og:image" content="https://themis.the-company.ai/marble_bg.png">
+  <meta property="og:image" content="https://themis.the-company.ai/GatesWebP/00192.webp">
   <meta property="og:locale" content="en_MU">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Themis — Your AI Research Counsel for Mauritius Law">
   <meta name="twitter:description" content="AI-powered legal research for Mauritian lawyers. Search the full corpus of Acts, Regulations, and Supreme Court judgments in seconds.">
-  <meta name="twitter:image" content="https://themis.the-company.ai/marble_bg.png">
+  <meta name="twitter:image" content="https://themis.the-company.ai/GatesWebP/00192.webp">
 
   <!-- Fonts & preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -808,7 +808,22 @@
     @media (max-width: 767px) {
       .beat-h { font-size: clamp(20px, 8vw, 34px); }
       .beat-s { font-size: clamp(11px, 3vw, 13px); }
+      /* Shorter scroll track on phones — the original 550vh = ~5 swipes
+         on a 812-tall device. 400vh is 3 swipes, still enough for all
+         four beats to breathe without dominating the page. */
+      #gates-hero { height: 400vh; }
     }
+
+    @media (max-width: 479px) {
+      /* Even tighter on phones; 350vh ≈ 2.5 swipes. */
+      #gates-hero { height: 350vh; }
+    }
+
+    /* The canvas fade at the end of the hero dovetails into the blurred
+       backdrop (body::before is the same frame 192, blurred). Use a
+       slightly longer fade so that hand-off reads as one continuous
+       image sharpening into softness rather than a cut. */
+    #canvas-sticky { transition: opacity 0.75s cubic-bezier(.4,0,.2,1); }
   </style>
 </head>
 <body>
@@ -1364,14 +1379,15 @@
   var penIdx = 0;
   var rafId  = null;
 
-  /* Mobile perf tiers — decided once at boot, no live resize re-tier:
-       phone (<480) : load only frame 0, no scroll-driven redraw
-       small (<640) : load every other frame (96 total)
-       else         : load all 192 frames                          */
+  /* Mobile perf tiers — decided once at boot, no live resize re-tier.
+     The door animation runs on every device; only the frame density
+     differs so the preload never dominates the data budget:
+       <480 : every 4th frame (48 total, ~3 MB)
+       <768 : every 2nd frame (96 total, ~6 MB)
+       else : all 192 frames  (~12 MB)                             */
   var vpW = window.innerWidth;
-  var isPhone = vpW < 480;
-  var step = vpW < 640 ? 2 : 1;
-  var framesToLoad = isPhone ? 1 : Math.ceil(TOTAL / step);
+  var step = vpW < 480 ? 4 : vpW < 768 ? 2 : 1;
+  var framesToLoad = Math.ceil(TOTAL / step);
 
   var canvas  = document.getElementById('gates-canvas');
   var ctx     = canvas.getContext('2d');
@@ -1436,16 +1452,13 @@
     ctx.drawImage(img, dx, dy, dw, dh);
   }
 
-  /* Preload — tier-aware.
-     - phone  : load only frame 0 and unlock immediately
-     - small  : load every other frame (96 total)
-     - else   : load all 192, unlock after first 30 */
-  var READY_THRESHOLD = isPhone ? 1 : Math.min(30, framesToLoad);
+  /* Preload — tier-aware. Unlock once we have frame 0 AND enough
+     of the sequence for the opening beats to feel alive. */
+  var READY_THRESHOLD = Math.min(Math.max(6, Math.ceil(framesToLoad * 0.2)), 30);
   var earlyReady = false;
 
   function preload() {
     for (var i = 0; i < TOTAL; i += step) {
-      if (isPhone && i > 0) break;
       (function(idx) {
         var img = new Image();
         img.src = 'GatesWebP/' + String(idx + 1).padStart(5, '0') + '.webp';
@@ -1522,16 +1535,6 @@
     if (!heroInView) return;
 
     var progress = clamp(scrollY / maxSc, 0, 1);
-    /* On phones we committed to a single frame — just keep beats
-       and skip the redraw path entirely. */
-    if (isPhone) {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(function () {
-        updateBeats(progress);
-        rafId = null;
-      });
-      return;
-    }
 
     /* Snap raw frame index to the nearest loaded step so the scroll
        maps onto frames we actually have in memory. */

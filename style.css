@@ -70,42 +70,57 @@ a {
     color: var(--accent-color);
 }
 
-/* ── Marble background + readability overlay ──────────────────
-   The marble is beautiful but too busy — we warm it down with a
-   cream overlay and a light saturation filter so body copy always
-   clears WCAG AA, while keeping enough marble visible to give cards
-   real visual hierarchy when they sit on top.                  */
-.landing,
-.fixed-background {
+/* ── Global backdrop: blurred last Gates frame ────────────────
+   Marble retired. The site sits over a heavily-blurred frame 192
+   (doors fully opened), so the whole page reads as "what lies beyond
+   the gates". Two fixed pseudo-layers stack behind content:
+     body::before (-3) — the blurred image, inset past the viewport
+                         so the blur doesn't clip at the edges.
+     body::after  (-2) — a neutral white wash for WCAG-AA readability.
+   .fixed-background (-1) carries the clouds / statue / gavel above. */
+body::before {
+    content: '';
+    position: fixed;
+    inset: -60px;
+    z-index: -3;
+    background: url('GatesWebP/00192.webp') no-repeat center center;
+    background-size: cover;
+    filter: blur(34px) saturate(0.88) brightness(1.02);
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
     position: fixed;
     inset: 0;
     z-index: -2;
-    background: url('marble_bg.png') no-repeat center center fixed;
-    background-size: cover;
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.34) 0%,
+            rgba(255, 255, 255, 0.52) 50%,
+            rgba(255, 255, 255, 0.60) 100%);
     pointer-events: none;
-    filter: saturate(0.9);
 }
 
-/* The .page-bg on secondary pages is a scrolling container, not a
-   decorative fixed layer — it must NOT share the fixed/-2 rules. */
+.fixed-background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* The in-body .frosted-bg layer is now redundant with body::after. */
+.frosted-bg {
+    display: none;
+}
+
+/* .page-bg on secondary pages is a scrolling container (not a fixed
+   decorative layer) — just needs clearance for the sticky nav. */
 .page-bg {
     display: block;
     position: relative;
     width: 100%;
     min-height: 100vh;
     padding-top: clamp(80px, 11vh, 110px);
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(180deg,
-            rgba(250, 248, 243, 0.22) 0%,
-            rgba(250, 248, 243, 0.38) 50%,
-            rgba(250, 248, 243, 0.48) 100%);
-    pointer-events: none;
 }
 
 .scroll-container {
