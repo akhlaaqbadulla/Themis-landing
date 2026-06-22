@@ -1,7 +1,7 @@
 {
   "name": "themis-landing",
   "version": "1.0.0",
-  "description": "Static landing site for Themis (AI legal research for Mauritius), served as a minimal container behind the shared Traefik proxy.",
+  "description": "Static landing site for Themis (AI legal research for Mauritius), deployed to GitHub Pages.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

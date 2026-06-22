@@ -1,40 +1,53 @@
-name: Deploy
+name: Deploy to GitHub Pages
 
+# Every push to main rebuilds and republishes the site to GitHub Pages.
+# workflow_dispatch lets you redeploy manually from the Actions tab.
 on:
   push:
     branches: [main]
   workflow_dispatch: {}
 
-# Serialise deploys so two pushes don't race the same directory.
-# cancel-in-progress: false — we don't want to abandon a half-done
-# docker compose; let the earlier run finish, queue the next.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one concurrent Pages deploy; a newer push supersedes an in-flight one.
 concurrency:
-  group: deploy-themis-landing
-  cancel-in-progress: false
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   deploy:
-    runs-on: [self-hosted, themis-landing]
-    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Pull + build + restart container
-        working-directory: /srv/themis
-        run: |
-          set -euo pipefail
-          echo "deploy sha=$GITHUB_SHA ref=$GITHUB_REF"
-          git fetch --quiet origin main
-          git reset --hard "$GITHUB_SHA"
-          docker compose build
-          docker compose up -d --remove-orphans
+      - uses: actions/checkout@v4
 
-      - name: Health check
+      - name: Assemble published site (only real assets)
         run: |
-          set -eo pipefail
-          for i in $(seq 1 20); do
-            CODE=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 5 https://the-company.ai || echo '000')
-            echo "attempt $i → HTTP $CODE"
-            if [ "$CODE" = "200" ]; then exit 0; fi
-            sleep 2
-          done
-          echo "site did not return 200 within 40s"
-          exit 1
+          mkdir -p dist
+          rsync -a ./ dist/ \
+            --exclude dist \
+            --exclude .git \
+            --exclude .github \
+            --exclude scripts \
+            --exclude node_modules \
+            --exclude package.json \
+            --exclude package-lock.json \
+            --exclude Prompts \
+            --exclude CLAUDE.md \
+            --exclude README.md \
+            --exclude .gitignore
+          touch dist/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

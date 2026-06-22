@@ -1,53 +1,20 @@
 # Themis Landing
 
-Static landing site for Themis (AI legal research for Mauritius), served as a minimal container behind the shared Traefik proxy.
-
-## Run
-
-```bash
-docker compose up -d --build
-```
-
-The image is built from `lipanski/docker-static-website` (BusyBox httpd, ~150 KB base) and listens on port 3000 inside the container. Traefik terminates TLS, applies the `secHeaders@file` and `gzip_compress@file` middlewares, and routes `Host(the-company.ai)` to it.
+Static landing site for Themis (AI legal research for Mauritius), deployed to GitHub Pages and served at [https://the-company.ai](https://the-company.ai).
 
 ## Continuous deployment
 
-Every push to `main` triggers `.github/workflows/deploy.yml` on the self-hosted runner on this server (`actions.runner.akhlaaqbadulla-Themis-landing.themis-landing-deploy.service`). The workflow: `git reset --hard $SHA` → `docker compose build` → `docker compose up -d --remove-orphans` → polls `https://the-company.ai` for a 200. End-to-end runtime ~20 s.
+Every push to `main` triggers `.github/workflows/deploy.yml` on a GitHub-hosted runner. The workflow assembles a clean `dist/` (the HTML pages, `style.css`, images, and `GatesWebP/` frames — internal docs, scripts, and tooling are excluded) and publishes it to GitHub Pages via `actions/deploy-pages`. The site is served at the apex `the-company.ai` (custom domain pinned by the `CNAME` file).
 
-To (re)install the runner:
-
-```bash
-./scripts/setup-runner.sh
-```
-
-Idempotent — safe to re-run after a runner unregister, a repo rename, or a server reinstall. Needs `gh` authenticated as someone with admin on the repo.
-
-To trigger a deploy without pushing:
+To redeploy without pushing:
 
 ```bash
 gh workflow run deploy.yml
 ```
 
-## Prerequisites (one-time)
+Pages configuration (one-time, in repo **Settings → Pages**): Source = **GitHub Actions**, Custom domain = `the-company.ai`, **Enforce HTTPS** enabled. DNS for the apex points at GitHub Pages' IPs (`185.199.108–111.153`) via the registrar.
 
-The container joins the external Docker network `project-themis_themis_net` created by the Traefik compose at `/home/ubuntu/opt/traefik/`. Before `docker compose up`:
-
-1. Stop the legacy standalone Caddy so it frees ports 80/443:
-   ```bash
-   cd /home/ubuntu/opt/caddy && docker compose down
-   ```
-2. Remove the duplicate inline `static-site` Caddy block in `/home/ubuntu/opt/traefik/docker-compose.yml` (it claims `Host(the-company.ai)` and would collide with this router), then:
-   ```bash
-   cd /home/ubuntu/opt/traefik && docker compose up -d
-   ```
-3. From this directory:
-   ```bash
-   docker compose up -d --build
-   ```
-
-Verify: `curl -I https://the-company.ai` returns `200` with HSTS and `Content-Encoding: gzip` from Traefik.
-
-## Local preview (no Docker)
+## Local preview
 
 ```bash
 python3 -m http.server 8080
@@ -72,11 +39,7 @@ Use the dockerised helper — it needs no host install of ffmpeg or cwebp:
 ./scripts/rerender-frames.sh /path/to/source.mp4 2160
 ```
 
-The script stages the output in `GatesWebP.new/`, verifies all 192 frames were produced, then swaps it in atomically (preserving the old frames at `GatesWebP.old-<timestamp>/` for rollback). After re-export:
-
-```bash
-docker compose build && docker compose up -d
-```
+The script stages the output in `GatesWebP.new/`, verifies all 192 frames were produced, then swaps it in atomically (preserving the old frames at `GatesWebP.old-<timestamp>/` for rollback). After re-export, commit the new frames and push to `main` — the deploy workflow republishes them automatically.
 
 ## Pages
 
