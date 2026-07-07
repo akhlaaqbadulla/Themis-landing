@@ -5,8 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0d3d36">
-    <meta name="color-scheme" content="light">
-    <title>Themis — About | AI Legal Assistant for Mauritius</title>
+    <meta name="color-scheme" content="light dark">
+    <script>
+        (function () {
+            var t = 'light';
+            try {
+                t = localStorage.getItem('themis-theme')
+                    || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            } catch (e) {}
+            document.documentElement.setAttribute('data-theme', t);
+        }());
+    </script>
+    <title>About Themis &amp; The AI Company | AI Legal Research Mauritius</title>
 
     <!-- Core SEO -->
     <meta name="description" content="Learn how Themis is transforming legal research in Mauritius with AI trained on the full corpus of Acts, Regulations, and Supreme Court judgments.">
@@ -17,29 +27,46 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Themis — About | AI Legal Assistant for Mauritius">
+    <meta property="og:title" content="About Themis &amp; The AI Company | AI Legal Research Mauritius">
     <meta property="og:description" content="Learn how Themis is transforming legal research in Mauritius with AI trained on the full corpus of Acts, Regulations, and Supreme Court judgments.">
     <meta property="og:url" content="https://the-company.ai/about.html">
     <meta property="og:site_name" content="Themis AI">
-    <meta property="og:image" content="https://the-company.ai/GatesWebP/00192.webp">
+    <meta property="og:image" content="https://the-company.ai/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The golden Gates of Olympus opening — Themis, AI legal research for Mauritius law">
     <meta property="og:locale" content="en_MU">
 
     <!-- Twitter/X Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Themis — About | AI Legal Assistant for Mauritius">
+    <meta name="twitter:title" content="About Themis &amp; The AI Company | AI Legal Research Mauritius">
     <meta name="twitter:description" content="Learn how Themis is transforming legal research in Mauritius with AI trained on the full corpus of Acts, Regulations, and Supreme Court judgments.">
-    <meta name="twitter:image" content="https://the-company.ai/GatesWebP/00192.webp">
+    <meta name="twitter:image" content="https://the-company.ai/og-image.jpg">
+    <meta name="twitter:image:alt" content="The golden Gates of Olympus opening — Themis, AI legal research for Mauritius law">
 
-    <!-- Preconnect hints -->
+    <!-- Fonts & preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://ajax.googleapis.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://the-company.ai/" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://the-company.ai/about.html" }
+      ]
+    }
+    </script>
 </head>
 
 <body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Glass Nav -->
     <header class="glass-nav">
@@ -54,20 +81,24 @@
             <a href="why-themis.html">Why Themis?</a>
             <a href="contact.html">Contact</a>
         </nav>
+        <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
     </header>
 
     <div class="page-bg">
         <!-- background elements -->
         <div class="fixed-background" aria-hidden="true">
-            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-            <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
+            <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+            <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+            <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+            <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+            <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
             <div class="frosted-bg"></div>
         </div>
 
-        <div class="content-container">
+        <div class="content-container" id="main" tabindex="-1">
             <h1 class="page-title ios-reveal">Intelligence, Redefined.</h1>
 
             <div class="glass-card ios-reveal delay-100">
@@ -155,6 +186,22 @@
             if (burger) burger.addEventListener('keydown', e => {
                 if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.checked = !toggle.checked; setExpanded(); }
             });
+        })();
+
+        // === THEME TOGGLE ===
+        (function () {
+            const btn = document.querySelector('.theme-toggle');
+            if (!btn) return;
+            const meta = document.querySelector('meta[name="theme-color"]');
+            const apply = (t) => {
+                document.documentElement.setAttribute('data-theme', t);
+                try { localStorage.setItem('themis-theme', t); } catch (e) {}
+                if (meta) meta.setAttribute('content', t === 'dark' ? '#0c1512' : '#0d3d36');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            };
+            apply(document.documentElement.getAttribute('data-theme') || 'light');
+            btn.addEventListener('click', () =>
+                apply(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
         })();
     </script>
 </body>

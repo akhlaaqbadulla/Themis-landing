@@ -4,43 +4,153 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0d3d36">
-  <meta name="color-scheme" content="light">
-  <title>Themis — Your AI Research Counsel for Mauritius Law</title>
+  <meta name="color-scheme" content="light dark">
+  <!-- Theme boot — runs before first paint so there's no flash of wrong theme -->
+  <script>
+    (function () {
+      var t = 'light';
+      try {
+        t = localStorage.getItem('themis-theme')
+          || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch (e) {}
+      document.documentElement.setAttribute('data-theme', t);
+    }());
+  </script>
+  <title>Themis — AI Legal Research for Mauritius Law | Search 57,000+ Judgments</title>
 
   <!-- SEO -->
-  <meta name="description" content="Themis is an AI legal research assistant built for Mauritius law. Instantly search 4,100+ Acts, 57,000+ judgments, and 17,800+ regulations.">
-  <meta name="keywords" content="AI legal research Mauritius, legal AI Mauritius, Mauritius law AI assistant, AI lawyer Mauritius, legal research tool Mauritius, Mauritius Supreme Court judgments AI, Mauritius Acts regulations, contract drafting AI Mauritius, legal memo Mauritius, law firm AI tools Mauritius, Mauritius case law search, Mauritian legal system AI, Themis AI, The AI Company Mauritius, law Mauritius, Mauritius law, laws of Mauritius, Mauritius legislation, Mauritius legal system, Mauritius courts, Mauritius legal advice, Mauritius legal services, chambers Mauritius, barristers Mauritius, attorneys Mauritius, law firm Mauritius, advocate Mauritius, avocat Mauritius, Port Louis chambers, Supreme Court Mauritius, Privy Council Mauritius">
+  <meta name="google-site-verification" content="F3jlVdRmxPxg9Up8os0BAB0nW0nUDgFHTS5lzgpceMs">
+  <meta name="description" content="AI legal research built exclusively for Mauritius law. Search 4,100+ Acts, 57,000+ judgments, and 17,800+ regulations — every answer cited. For Mauritian lawyers.">
+  <meta name="keywords" content="AI legal research Mauritius, legal AI Mauritius, AI lawyer Mauritius, legal research tool Mauritius, Mauritius case law search, Mauritius judgments, Mauritius Supreme Court judgments, Mauritius Acts and Regulations, Mauritius law, legal technology Mauritius, law firm software Mauritius, legal memo drafting Mauritius, recherche juridique Maurice, IA juridique Maurice, Themis AI, The AI Company Mauritius">
   <meta name="author" content="The AI Company">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://the-company.ai/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Themis — Your AI Research Counsel for Mauritius Law">
-  <meta property="og:description" content="AI-powered legal research for Mauritian lawyers. Search the full corpus of Acts, Regulations, and Supreme Court judgments in seconds.">
+  <meta property="og:title" content="Themis — AI Legal Research for Mauritius Law">
+  <meta property="og:description" content="AI-powered legal research for Mauritian lawyers. Search the full corpus of Acts, Regulations, and Supreme Court judgments in seconds — every answer cited.">
   <meta property="og:url" content="https://the-company.ai/">
   <meta property="og:site_name" content="Themis AI">
-  <meta property="og:image" content="https://the-company.ai/GatesWebP/00192.webp">
+  <meta property="og:image" content="https://the-company.ai/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The golden Gates of Olympus opening — Themis, AI legal research for Mauritius law">
   <meta property="og:locale" content="en_MU">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Themis — Your AI Research Counsel for Mauritius Law">
-  <meta name="twitter:description" content="AI-powered legal research for Mauritian lawyers. Search the full corpus of Acts, Regulations, and Supreme Court judgments in seconds.">
-  <meta name="twitter:image" content="https://the-company.ai/GatesWebP/00192.webp">
+  <meta name="twitter:title" content="Themis — AI Legal Research for Mauritius Law">
+  <meta name="twitter:description" content="AI-powered legal research for Mauritian lawyers. Search the full corpus of Acts, Regulations, and Supreme Court judgments in seconds — every answer cited.">
+  <meta name="twitter:image" content="https://the-company.ai/og-image.jpg">
+  <meta name="twitter:image:alt" content="The golden Gates of Olympus opening — Themis, AI legal research for Mauritius law">
 
   <!-- Fonts & preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://i.ytimg.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- Preload first scrollytelling frame for fast LCP -->
-  <link rel="preload" as="image" href="GatesWebP/00001.webp" fetchpriority="high">
+  <!-- Preload first scrollytelling frame for fast LCP.
+       Reduced-motion users skip the sequence entirely — don't fetch for them. -->
+  <link rel="preload" as="image" href="GatesWebP/00001.webp" fetchpriority="high" media="(prefers-reduced-motion: no-preference)">
 
   <!-- Existing site styles -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- GSAP -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- Structured data — Organization, product, and FAQ rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://the-company.ai/#org",
+        "name": "The AI Company",
+        "url": "https://the-company.ai/",
+        "logo": "https://the-company.ai/og-image.jpg",
+        "email": "contact@the-company.ai",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Port Louis",
+          "addressCountry": "MU"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Mauritius"
+        },
+        "knowsAbout": [
+          "Mauritius law",
+          "Legal research",
+          "Mauritius Supreme Court judgments",
+          "Privy Council appeals",
+          "Mauritius Acts and Regulations",
+          "Artificial intelligence for legal professionals"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://the-company.ai/#website",
+        "url": "https://the-company.ai/",
+        "name": "Themis AI",
+        "publisher": { "@id": "https://the-company.ai/#org" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Themis",
+        "alternateName": "Themis AI — Legal Research Counsel for Mauritius",
+        "url": "https://the-company.ai/",
+        "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "Legal research software",
+        "operatingSystem": "Web",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Barristers, attorneys, and law firms in Mauritius"
+        },
+        "description": "AI legal research assistant trained exclusively on Mauritius law: 4,100+ Acts, 57,000+ Supreme Court and Privy Council judgments, and 17,800+ regulations, with citation-backed output.",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/PreOrder",
+          "url": "https://the-company.ai/#access"
+        },
+        "publisher": { "@id": "https://the-company.ai/#org" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Themis trained specifically on Mauritius law?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, exclusively. Themis was built and trained on the complete published corpus of Mauritius legislation: 4,100+ Acts, 57,000+ Supreme Court and Privy Council judgments, 17,800+ regulations, and 150+ bill reprints. It has no knowledge of other jurisdictions by design, which is what makes it so accurate for Mauritian practitioners." }
+          },
+          {
+            "@type": "Question",
+            "name": "Will Themis use my client data to train its AI?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Never. Your queries, documents, and case notes are never used to train Themis or any underlying AI model. Your data is encrypted, private, and stays yours. Enterprise clients can also request on-premise deployment for full data sovereignty." }
+          },
+          {
+            "@type": "Question",
+            "name": "How accurate is Themis compared to doing research manually?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Independent testing shows 99.22% accuracy on Mauritius-specific legal queries, and 580% more accurate than generic AI tools like ChatGPT when tested on the same questions. Every output is citation-backed, so you can verify any answer against the source Act or judgment directly." }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does onboarding take?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Most practitioners are up and running within the same day. Themis requires no installation: it runs in your browser. For enterprise deployments, our team provides dedicated onboarding and training sessions." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Themis replace lawyers?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No, and it is not designed to. Themis replaces the research burden, not the lawyer. It handles the time-consuming retrieval, cross-referencing, and drafting work so that you can focus on strategy, client relationships, and advocacy." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the Private Beta, and how do I join?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Themis is currently in a controlled Private Beta, available to a limited number of Mauritian legal professionals before our public launch. Beta participants get early access, discounted rates, and direct input into the product roadmap. Apply using the form on the site; applications are reviewed within 24 hours." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <style>
     /* ── Reset & base ──────────────────────────────────── */
@@ -690,6 +800,317 @@
       border-color: rgba(255,255,255,0.85);
     }
 
+    /* ── Video facade ─────────────────────────────────────── */
+    .video-facade {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      background: #000;
+      display: block;
+    }
+    .video-facade img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.88;
+      transition: opacity 0.25s ease, transform 0.4s ease;
+    }
+    .video-facade:hover img { opacity: 1; transform: scale(1.02); }
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: rgba(13,61,54,0.85);
+      border: 2px solid rgba(212,175,55,0.9);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 4px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .video-facade:hover .video-play-btn {
+      transform: translate(-50%, -50%) scale(1.08);
+      background: rgba(13,61,54,0.95);
+    }
+
+    /* ── Scroll progress bar ────────────────────────────────── */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, #d4af37, #f1d87a);
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 1001;
+      pointer-events: none;
+    }
+
+    /* ── "Ask Themis" console mock ──────────────────────────── */
+    .mock-shell {
+      padding: 0 !important;
+      overflow: hidden;
+    }
+    .mock-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.8rem 1.2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      background: rgba(255,255,255,0.4);
+    }
+    .mock-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(13,61,54,0.18);
+    }
+    .mock-title {
+      margin-left: 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+    .mock-body {
+      padding: 1.5rem 1.6rem 1.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .mock-row {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+    }
+    .mock-avatar {
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 800;
+      background: rgba(13,61,54,0.1);
+      color: #0d3d36;
+    }
+    .mock-avatar.is-themis {
+      background: #0d3d36;
+      color: #f1d87a;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .mock-query p {
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.6;
+      min-height: 1.6em;
+      margin: 0.35rem 0 0;
+    }
+    .mock-caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.05em;
+      background: var(--gold-accent, #d4af37);
+      margin-left: 2px;
+      vertical-align: -0.15em;
+      animation: caret-blink 1s steps(1) infinite;
+    }
+    @keyframes caret-blink { 50% { opacity: 0; } }
+    .mock-answer {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .mock-answer.shown {
+      opacity: 1;
+      transform: none;
+    }
+    .mock-answer p {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin: 0.3rem 0 0;
+    }
+    .mock-citations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.95rem;
+    }
+    .cite-chip {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.32rem 0.72rem;
+      border-radius: 999px;
+      background: rgba(212,175,55,0.14);
+      border: 1px solid rgba(212,175,55,0.45);
+      color: #0d3d36;
+      white-space: nowrap;
+    }
+
+    /* ── Testimonials ───────────────────────────────────────── */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .testimonial-card {
+      background: var(--glass-bg, rgba(255,255,255,0.78));
+      border: 1px solid var(--glass-border, rgba(255,255,255,0.9));
+      border-radius: var(--radius, 14px);
+      padding: 1.75rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(13,61,54,0.14);
+    }
+    .testimonial-card::before {
+      content: "\201C";
+      font-family: Georgia, serif;
+      font-size: 3.4rem;
+      line-height: 1;
+      height: 2rem;
+      color: var(--gold-accent, #d4af37);
+    }
+    .testimonial-quote {
+      font-size: 0.96rem;
+      line-height: 1.7;
+      font-style: italic;
+      flex: 1;
+      margin: 0;
+    }
+    .testimonial-author {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0d3d36;
+      margin: 0;
+    }
+    .testimonial-role {
+      font-size: 0.78rem;
+      color: rgba(0,0,0,0.5);
+      margin: 0.15rem 0 0;
+    }
+    @media (max-width: 900px) {
+      .testimonial-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Pricing cards (redesigned) ─────────────────────────── */
+    .pricing-card {
+      background: var(--glass-bg, rgba(255,255,255,0.78));
+      border: 1px solid var(--glass-border, rgba(255,255,255,0.9));
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      position: relative;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 44px rgba(13,61,54,0.15);
+    }
+    .pricing-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #0d3d36;
+      margin: 0 0 0.3rem;
+    }
+    .pricing-tagline {
+      font-size: 0.85rem;
+      color: rgba(0,0,0,0.55);
+      margin: 0 0 1.4rem;
+    }
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.75rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .pricing-features li {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding-left: 1.6rem;
+      position: relative;
+      color: rgba(0,0,0,0.7);
+    }
+    .pricing-features li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 800;
+      color: var(--gold-accent, #d4af37);
+    }
+    .pricing-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
+    .pricing-card-featured {
+      box-shadow: 0 14px 40px rgba(212,175,55,0.22);
+    }
+    @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+      .pricing-card-featured { transform: scale(1.045); }
+      .pricing-card-featured:hover { transform: scale(1.045) translateY(-8px); }
+    }
+    /* Shrink-wrapped glass pills — these two lines sit directly over the
+       statue (unlike the pull-quote inside the comparison card), so they
+       carry their own frosted background for legibility. */
+    .pricing-note,
+    .content-container > .pull-quote {
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .pricing-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.6);
+      margin-top: 1.75rem;
+    }
+    html[data-theme="dark"] .pricing-note,
+    html[data-theme="dark"] .content-container > .pull-quote {
+      background: rgba(10,18,16,0.65);
+      border-color: rgba(255,255,255,0.12);
+    }
+
     /* ── Canvas sharpness on hi-DPI ───────────────────────
        On landscape viewports (≥4:3), cap the hero canvas to
        the source aspect ratio (16:9). This stops upscaling the
@@ -821,9 +1242,147 @@
 
     /* No CSS transition on opacity — onScroll drives it per-frame so the
        fade tracks the scroll rather than trailing it with easing. */
+
+    /* ══ Dark theme — index-only components ══════════════════
+       Shared surfaces (nav, glass cards, forms) are handled in
+       style.css; these cover the components defined above.      */
+    html[data-theme="dark"] #loading { background: #0c1512; }
+    html[data-theme="dark"] .loading-logo { color: rgba(255,255,255,0.35); }
+    html[data-theme="dark"] .spinner-ring { border-color: rgba(255,255,255,0.1); border-top-color: rgba(255,255,255,0.55); }
+    html[data-theme="dark"] .loading-label { color: rgba(255,255,255,0.4); }
+    html[data-theme="dark"] #loading-bar-wrap { background: rgba(255,255,255,0.1); }
+    html[data-theme="dark"] #loading-bar { background: rgba(255,255,255,0.45); }
+    html[data-theme="dark"] #loading-pct { color: rgba(255,255,255,0.3); }
+
+    html[data-theme="dark"] #gates-canvas { filter: brightness(0.92) contrast(1.02) saturate(1.03); }
+
+    html[data-theme="dark"] .social-proof-pill {
+      background: rgba(18,30,27,0.6);
+      border-color: rgba(255,255,255,0.12);
+      color: #cfe5de;
+    }
+
+    html[data-theme="dark"] .ai-box.interactive {
+      background: rgba(18,30,27,0.55);
+      border-color: rgba(255,255,255,0.18);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    html[data-theme="dark"] .ai-box.interactive h3,
+    html[data-theme="dark"] .ai-box.interactive p,
+    html[data-theme="dark"] .ai-box.interactive .year { color: #f2efe6 !important; }
+
+    html[data-theme="dark"] .btn-ghost {
+      color: #cfe5de;
+      border-color: rgba(143,208,194,0.35);
+    }
+    html[data-theme="dark"] .btn-ghost:hover {
+      background: rgba(143,208,194,0.08);
+      border-color: rgba(143,208,194,0.6);
+    }
+
+    html[data-theme="dark"] .knowledge-card {
+      background: rgba(18,30,27,0.8);
+      border-color: rgba(255,255,255,0.12);
+    }
+    html[data-theme="dark"] .knowledge-card:hover { background: rgba(24,40,36,0.88); }
+    html[data-theme="dark"] .knowledge-card h3 { color: #cfe5de; }
+    html[data-theme="dark"] .knowledge-card p { color: rgba(233,230,221,0.72); }
+    html[data-theme="dark"] .knowledge-stat { color: #8fd0c2; }
+
+    html[data-theme="dark"] .stats-ticker {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.08);
+    }
+    html[data-theme="dark"] .stat-number { color: #8fd0c2; }
+    html[data-theme="dark"] .stat-label { color: rgba(255,255,255,0.5); }
+    html[data-theme="dark"] .stats-ticker-grid .stat-item {
+      border-right-color: rgba(255,255,255,0.12) !important;
+      border-top-color: rgba(255,255,255,0.12) !important;
+    }
+
+    html[data-theme="dark"] .problem-col-bad { background: rgba(180,30,30,0.12); }
+    html[data-theme="dark"] .problem-col-good { background: rgba(143,208,194,0.08); }
+    html[data-theme="dark"] .problem-col li { color: rgba(233,230,221,0.75); }
+    html[data-theme="dark"] .problem-col-bad h4 { color: rgba(255,140,140,0.9); }
+    html[data-theme="dark"] .problem-col-good h4 { color: #8fd0c2; }
+
+    html[data-theme="dark"] .step-number { color: #8fd0c2; opacity: 0.3; }
+
+    html[data-theme="dark"] .comparison-table th { border-bottom-color: rgba(255,255,255,0.15); }
+    html[data-theme="dark"] .comparison-table th:nth-child(2) { color: rgba(255,255,255,0.45); }
+    html[data-theme="dark"] .comparison-table th:nth-child(3) { color: #8fd0c2; }
+    html[data-theme="dark"] .comparison-table td { border-bottom-color: rgba(255,255,255,0.08); }
+    html[data-theme="dark"] .comparison-table td:nth-child(2) { color: rgba(255,255,255,0.5); }
+    html[data-theme="dark"] .comparison-table td:nth-child(3) { color: #8fd0c2; }
+    html[data-theme="dark"] .cross { color: rgba(255,120,120,0.85) !important; }
+    html[data-theme="dark"] .check { color: #8fd0c2 !important; }
+    @media (max-width: 640px) {
+      html[data-theme="dark"] .comparison-table tr {
+        background: rgba(255,255,255,0.06);
+        border-color: rgba(255,255,255,0.1);
+      }
+      html[data-theme="dark"] .comparison-table td::before { color: rgba(255,255,255,0.45); }
+      html[data-theme="dark"] .comparison-table td:first-child {
+        color: #cfe5de;
+        border-bottom-color: rgba(255,255,255,0.12);
+      }
+    }
+
+    html[data-theme="dark"] .trust-tile {
+      background: rgba(18,30,27,0.75);
+      border-color: rgba(255,255,255,0.12);
+      border-left-color: rgba(143,208,194,0.4);
+    }
+    html[data-theme="dark"] .trust-title { color: #cfe5de; }
+    html[data-theme="dark"] .trust-body { color: rgba(233,230,221,0.65); }
+
+    html[data-theme="dark"] .faq-item { border-bottom-color: rgba(255,255,255,0.08); }
+    html[data-theme="dark"] .faq-question { color: #cfe5de; }
+    html[data-theme="dark"] .faq-answer { color: rgba(233,230,221,0.7); }
+
+    html[data-theme="dark"] .pull-quote { color: #cfe5de; }
+    html[data-theme="dark"] .section-cta { color: #cfe5de; border-bottom-color: rgba(143,208,194,0.4); }
+    html[data-theme="dark"] .section-cta:hover { border-bottom-color: #8fd0c2; }
+
+    html[data-theme="dark"] .footer-grid {
+      background: rgba(255,255,255,0.04) !important;
+      border-top-color: rgba(255,255,255,0.08) !important;
+    }
+
+    html[data-theme="dark"] .mock-titlebar {
+      background: rgba(255,255,255,0.04);
+      border-bottom-color: rgba(255,255,255,0.08);
+    }
+    html[data-theme="dark"] .mock-dot { background: rgba(255,255,255,0.15); }
+    html[data-theme="dark"] .mock-avatar { background: rgba(255,255,255,0.08); color: #cfe5de; }
+    html[data-theme="dark"] .mock-avatar.is-themis { background: rgba(212,175,55,0.16); color: #f1d87a; }
+    html[data-theme="dark"] .cite-chip { color: #f0d98a; background: rgba(212,175,55,0.1); }
+
+    html[data-theme="dark"] .testimonial-author { color: #8fd0c2; }
+    html[data-theme="dark"] .testimonial-role { color: rgba(233,230,221,0.5); }
+    html[data-theme="dark"] .testimonial-card:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.4); }
+
+    html[data-theme="dark"] .pricing-card h3 { color: #cfe5de; }
+    html[data-theme="dark"] .pricing-tagline { color: rgba(233,230,221,0.55); }
+    html[data-theme="dark"] .pricing-features li { color: rgba(233,230,221,0.75); }
+    html[data-theme="dark"] .pricing-note { color: rgba(233,230,221,0.5); }
+    html[data-theme="dark"] .pricing-card:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.45); }
+    html[data-theme="dark"] .pricing-card-featured { box-shadow: 0 14px 40px rgba(212,175,55,0.14); }
   </style>
 </head>
 <body>
+
+<a class="skip-link" href="#site-content">Skip to content</a>
+
+<!-- No-JS fallback: without JS the loading overlay never clears and
+     .ios-reveal content stays invisible — neutralise both. -->
+<noscript>
+  <style>
+    #loading, #scroll-hint, #gates-hero { display: none !important; }
+    .ios-reveal { opacity: 1 !important; transform: none !important; }
+    .themis { opacity: 1 !important; transform: none !important; }
+  </style>
+</noscript>
 
 <!-- ── Loading ───────────────────────────────────────────── -->
 <div id="loading">
@@ -843,12 +1402,12 @@
 <!-- ── Fixed background (marble, clouds, themis, frosted) ── -->
 <!-- z-index: -1 from style.css — hidden behind canvas during hero, revealed after -->
 <div class="fixed-background" aria-hidden="true">
-  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-  <img src="cloud.png" alt="" class="cloud" width="600" height="300" loading="lazy" decoding="async">
-  <img src="themis.png" alt="" class="themis themis-png out-of-hero" width="800" height="1200" decoding="async">
+  <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+  <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+  <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+  <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+  <img src="cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+  <img src="themis.webp" alt="" class="themis themis-png out-of-hero" width="1200" height="1200" loading="lazy" decoding="async">
   <div class="frosted-bg"></div>
 </div>
 
@@ -863,9 +1422,17 @@
     <a href="about.html">About</a>
     <a href="workflows.html">Workflows</a>
     <a href="why-themis.html">Why Themis?</a>
+    <a href="contact.html">Contact</a>
     <a href="#access" class="nav-request-pill">Request Access</a>
   </nav>
+  <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+  </button>
 </header>
+
+<!-- ── Scroll progress bar ──────────────────────────────── -->
+<div id="scroll-progress" aria-hidden="true"></div>
 
 <!-- ── Gates Hero ───────────────────────────────────────── -->
 <div id="gates-hero">
@@ -892,7 +1459,7 @@
 </div>
 
 <!-- ── Site content ──────────────────────────────────────── -->
-<div id="site-content">
+<div id="site-content" tabindex="-1">
   <main class="scroll-container">
 
     <!-- ══ SECTION 1 · Hero Text ═══════════════════════════ -->
@@ -900,10 +1467,12 @@
       <div class="content-container" style="text-align:center; max-width:none; width:100%;">
         <div class="content" style="display:flex; flex-direction:column; align-items:center; width:100%;">
           <div class="content-inner ios-reveal" style="max-width:620px;">
-            <p class="meta top" style="color:#0d3d36;">
+            <!-- h1 styled to match the old <p> exactly — the page's primary
+                 heading for search engines and screen readers. -->
+            <h1 class="meta top" style="color:#0d3d36; font-size:var(--fs-body); margin:0 0 1.5rem;">
               <span style="font-size:2.4rem; font-weight:800; display:block; line-height:1.1; margin-bottom:0.4rem;">Themis</span>
-              Your AI Research Counsel
-            </p>
+              Your AI Research Counsel for Mauritius Law
+            </h1>
 
             <div class="ai-container" style="display:flex; justify-content:center; width:100%;">
               <div class="ai-box interactive">
@@ -1004,6 +1573,39 @@
       </div>
     </section>
 
+    <!-- ══ SECTION 3B · Ask Themis (console mock) ═══════════ -->
+    <section id="ask-themis" style="padding:4rem 0 3rem;">
+      <div class="content-container" style="max-width:860px;">
+        <p class="section-eyebrow ios-reveal">See it in action</p>
+        <h2 class="page-title ios-reveal">Ask Like a Colleague.<br>Cited Like a Court Filing.</h2>
+        <div class="glass-card mock-shell ios-reveal delay-100">
+          <div class="mock-titlebar" aria-hidden="true">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+            <span class="mock-title">Themis &middot; Research Console</span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-row mock-query">
+              <span class="mock-avatar" aria-hidden="true">You</span>
+              <p><span id="mock-typed"></span><span class="mock-caret" id="mock-caret" aria-hidden="true"></span></p>
+            </div>
+            <!-- NOTE: illustrative answer — have a practitioner vet or replace
+                 this copy with a real, verified Themis output before launch. -->
+            <div class="mock-row mock-answer" id="mock-answer">
+              <span class="mock-avatar is-themis" aria-hidden="true">&Theta;</span>
+              <div>
+                <p>Under the <strong>Workers&rsquo; Rights Act 2019</strong>, dismissal for poor performance is lawful only where the employer can show the employee was informed of the shortfall, given a genuine opportunity to improve, and heard before the decision &mdash; the Supreme Court has consistently set aside dismissals where that procedure was skipped. I&rsquo;ve drafted a memo setting out the controlling authorities and the procedural checklist.</p>
+                <div class="mock-citations">
+                  <span class="cite-chip">Workers&rsquo; Rights Act 2019</span>
+                  <span class="cite-chip">Supreme Court &middot; unfair dismissal authorities</span>
+                  <span class="cite-chip">Memo drafted &middot; 3 min 40 s</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ══ SECTION 4 · Knowledge Base ══════════════════════ -->
     <section id="knowledge" class="min-h-screen">
       <div class="content-container">
@@ -1098,15 +1700,14 @@
         </p>
         <div class="glass-card ios-reveal delay-100" style="padding:1.5rem;">
           <div class="video-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/UvAR0DFkjXQ?si=6AiEChQOqj_mS1RO"
-              title="Themis AI Legal Assistant Demo"
-              frameborder="0"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen>
-            </iframe>
+            <!-- Click-to-load facade — the YouTube iframe (~1 MB of JS) is
+                 only injected when the visitor actually plays the video. -->
+            <button type="button" id="demo-facade" class="video-facade" aria-label="Play video: Watch Themis research a live case">
+              <img src="https://i.ytimg.com/vi/UvAR0DFkjXQ/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+              <span class="video-play-btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+            </button>
           </div>
         </div>
         <div style="text-align:center;">
@@ -1218,32 +1819,86 @@
       </div>
     </section>
 
-    <!-- ══ SECTION 10 · Pricing Teaser ══════════════════════ -->
+    <!-- ══ SECTION 9B · Testimonials ════════════════════════ -->
+    <!-- PLACEHOLDER QUOTES: replace with real, permissioned quotes from
+         beta users before launch. Keep attributions anonymous unless the
+         practitioner has approved being named. -->
+    <section id="testimonials" style="padding:5rem 0 3rem;">
+      <div class="content-container">
+        <p class="section-eyebrow ios-reveal">Early access feedback</p>
+        <h2 class="page-title ios-reveal">What Beta Practitioners Are Saying.</h2>
+        <div class="testimonial-grid">
+          <figure class="testimonial-card ios-reveal">
+            <blockquote class="testimonial-quote">Research that used to take my pupil a full day comes back in minutes &mdash; with the citations already checked against the source.</blockquote>
+            <figcaption>
+              <p class="testimonial-author">Barrister</p>
+              <p class="testimonial-role">Chambers, Port Louis</p>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card ios-reveal delay-100">
+            <blockquote class="testimonial-quote">The first legal AI that actually knows the Workers&rsquo; Rights Act from the old Labour Act. Generic tools never stood a chance here.</blockquote>
+            <figcaption>
+              <p class="testimonial-author">Managing Partner</p>
+              <p class="testimonial-role">Corporate law firm, Ebène</p>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card ios-reveal delay-200">
+            <blockquote class="testimonial-quote">I verify every authority it cites, out of habit. So far it has never pointed me to a case that wasn&rsquo;t on point.</blockquote>
+            <figcaption>
+              <p class="testimonial-author">In-house Counsel</p>
+              <p class="testimonial-role">Financial services</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SECTION 10 · Pricing ═════════════════════════════ -->
     <section style="padding:5rem 0;">
       <div class="content-container">
+        <p class="section-eyebrow ios-reveal">Plans</p>
         <h2 class="page-title ios-reveal">A Plan for Every Practice.</h2>
         <div class="pricing-grid ios-reveal delay-100">
 
-          <div class="knowledge-card">
+          <div class="pricing-card">
             <h3>Individual Practitioner</h3>
-            <p style="font-size:0.9rem; color:rgba(0,0,0,0.6); line-height:1.7; margin-top:0.5rem;">Sole barristers and attorneys. Full research power, single-user access, priority support.</p>
-            <p style="margin-top:1.5rem; font-size:0.8rem; font-weight:700; color:#0d3d36; letter-spacing:0.12em; text-transform:uppercase;">Private Beta · Apply Below</p>
+            <p class="pricing-tagline">Sole barristers &amp; attorneys</p>
+            <ul class="pricing-features">
+              <li>Full corpus research &mdash; every Act, judgment, and regulation</li>
+              <li>Cited memos and contract drafting</li>
+              <li>Single-user seat</li>
+              <li>Priority support</li>
+            </ul>
+            <a href="#access" class="btn-ghost pricing-cta">Apply for Beta</a>
           </div>
 
-          <div class="knowledge-card pricing-card-featured" style="position:relative;">
+          <div class="pricing-card pricing-card-featured">
             <span class="pricing-badge">Most Requested</span>
             <h3>Small Chambers</h3>
-            <p style="font-size:0.9rem; color:rgba(0,0,0,0.6); line-height:1.7; margin-top:0.5rem;">Teams of 2-10. Shared knowledge base, collaborative research, usage analytics, and admin controls.</p>
-            <p style="margin-top:1.5rem; font-size:0.8rem; font-weight:700; color:#0d3d36; letter-spacing:0.12em; text-transform:uppercase;">Private Beta · Apply Below</p>
+            <p class="pricing-tagline">Teams of 2&ndash;10</p>
+            <ul class="pricing-features">
+              <li>Everything in Individual</li>
+              <li>Shared research workspace</li>
+              <li>Usage analytics &amp; admin controls</li>
+              <li>Custom letterheads &amp; house style</li>
+            </ul>
+            <a href="#access" class="accent-btn pricing-cta" style="text-decoration:none;">Apply for Beta &rarr;</a>
           </div>
 
-          <div class="knowledge-card">
+          <div class="pricing-card">
             <h3>Enterprise Firm</h3>
-            <p style="font-size:0.9rem; color:rgba(0,0,0,0.6); line-height:1.7; margin-top:0.5rem;">Large firms. Custom deployment, on-premise option, API access, dedicated account management.</p>
-            <p style="margin-top:1.5rem; font-size:0.8rem; font-weight:700; color:#0d3d36; letter-spacing:0.12em; text-transform:uppercase;">Private Beta · Apply Below</p>
+            <p class="pricing-tagline">Large firms &amp; institutions</p>
+            <ul class="pricing-features">
+              <li>Everything in Small Chambers</li>
+              <li>On-premise deployment option</li>
+              <li>API access &amp; workflow integration</li>
+              <li>Dedicated account management</li>
+            </ul>
+            <a href="contact.html" class="btn-ghost pricing-cta">Talk to Us</a>
           </div>
 
         </div>
+        <p class="pricing-note ios-reveal">Beta pricing is shared during your onboarding call &mdash; no credit card required to apply.</p>
         <p class="pull-quote ios-reveal delay-200">
           &ldquo;Themis costs less than a junior clerk, delivering senior associate-level research 24 hours a day.&rdquo;
         </p>
@@ -1350,7 +2005,7 @@
               <p style="font-weight:700; font-size:0.8rem; color:#0d3d36; margin-bottom:1rem; letter-spacing:0.12em; text-transform:uppercase;">Contact</p>
               <p style="font-size:0.85rem; color:rgba(0,0,0,0.55); line-height:1.9;">
                 Port Louis, Mauritius<br>
-                the-company.ai<br>
+                <a href="mailto:contact@the-company.ai" style="color:rgba(0,0,0,0.6);">contact@the-company.ai</a><br>
                 &copy; 2025 The AI Company
               </p>
             </div>
@@ -1378,10 +2033,16 @@
      differs so the preload never dominates the data budget:
        <480 : every 4th frame (48 total, ~3 MB)
        <768 : every 2nd frame (96 total, ~6 MB)
-       else : all 192 frames  (~12 MB)                             */
+       else : all 192 frames  (~12 MB)
+     Save-Data users get the sparsest tier regardless of screen.    */
   var vpW = window.innerWidth;
+  var saveData = navigator.connection && navigator.connection.saveData;
   var step = vpW < 480 ? 4 : vpW < 768 ? 2 : 1;
-  var framesToLoad = Math.ceil(TOTAL / step);
+  if (saveData) step = 4;
+  /* +1: stepped tiers never land on the last index, but the final frame
+     must be in memory so the end of the scroll matches the frame-192
+     backdrop the canvas dissolves into. */
+  var framesToLoad = Math.ceil(TOTAL / step) + (step > 1 ? 1 : 0);
 
   var canvas  = document.getElementById('gates-canvas');
   var ctx     = canvas.getContext('2d');
@@ -1391,6 +2052,20 @@
   var hint         = document.getElementById('scroll-hint');
   var hero         = document.getElementById('gates-hero');
   var canvasSticky = document.getElementById('canvas-sticky');
+
+  /* Reduced motion: skip the scrollytelling entirely — no 192-frame
+     download, no scroll-driven animation. The page opens directly on
+     the content over the blurred open-gates backdrop, statue visible. */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    hero.style.display = 'none';
+    hint.style.display = 'none';
+    document.body.classList.add('gates-opened');
+    /* On phones the statue is meant to clear out once content takes the
+       stage — with no scroll handler to toggle it, set it up-front. */
+    if (window.innerWidth < 768) document.body.classList.add('past-gates-hero');
+    loading.style.display = 'none';
+    return;
+  }
 
   /* Gate frame redraw to when the hero is actually on screen.
      The hero div is 550vh; once scrolled past it there's nothing
@@ -1448,26 +2123,28 @@
 
   /* Preload — tier-aware. Unlock once we have frame 0 AND enough
      of the sequence for the opening beats to feel alive. */
-  var READY_THRESHOLD = Math.min(Math.max(6, Math.ceil(framesToLoad * 0.2)), 30);
+  var READY_THRESHOLD = Math.min(framesToLoad, Math.min(Math.max(6, Math.ceil(framesToLoad * 0.2)), 30));
   var earlyReady = false;
+  pctEl.textContent = '0 / ' + framesToLoad;
+
+  function loadFrame(idx) {
+    var img = new Image();
+    img.src = 'GatesWebP/' + String(idx + 1).padStart(5, '0') + '.webp';
+    img.onload = img.onerror = function() {
+      frames[idx] = (this.complete && this.naturalWidth) ? this : null;
+      loaded++;
+      bar.style.width = Math.round((loaded / framesToLoad) * 100) + '%';
+      pctEl.textContent = loaded + ' / ' + framesToLoad;
+      if (!earlyReady && loaded >= READY_THRESHOLD && frames[0]) {
+        earlyReady = true;
+        onReady();
+      }
+    };
+  }
 
   function preload() {
-    for (var i = 0; i < TOTAL; i += step) {
-      (function(idx) {
-        var img = new Image();
-        img.src = 'GatesWebP/' + String(idx + 1).padStart(5, '0') + '.webp';
-        img.onload = img.onerror = function() {
-          frames[idx] = (this.complete && this.naturalWidth) ? this : null;
-          loaded++;
-          bar.style.width = Math.round((loaded / framesToLoad) * 100) + '%';
-          pctEl.textContent = loaded + ' / ' + framesToLoad;
-          if (!earlyReady && loaded >= READY_THRESHOLD && frames[0]) {
-            earlyReady = true;
-            onReady();
-          }
-        };
-      }(i));
-    }
+    for (var i = 0; i < TOTAL; i += step) loadFrame(i);
+    if (step > 1) loadFrame(TOTAL - 1);
   }
 
   function onReady() {
@@ -1553,9 +2230,13 @@
     if (!heroInView) return;
 
     /* Snap raw frame index to the nearest loaded step so the scroll
-       maps onto frames we actually have in memory. */
+       maps onto frames we actually have in memory. The last <step>
+       positions snap to the final frame (loaded explicitly) so the
+       canvas matches the frame-192 backdrop at the hand-off. */
     var rawIdx = Math.floor(progress * TOTAL);
-    penIdx = Math.min(TOTAL - 1, Math.floor(rawIdx / step) * step);
+    penIdx = rawIdx >= TOTAL - step
+      ? TOTAL - 1
+      : Math.min(TOTAL - 1, Math.floor(rawIdx / step) * step);
 
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(function() {
@@ -1589,6 +2270,87 @@ function submitAccessRequest() {
 
 /* ── Reduced-motion guard (shared) ──────────────────────── */
 var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── YouTube facade → real embed on demand ──────────────── */
+(function () {
+  var facade = document.getElementById('demo-facade');
+  if (!facade) return;
+  facade.addEventListener('click', function () {
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/UvAR0DFkjXQ?autoplay=1&rel=0';
+    iframe.title = 'Themis AI Legal Assistant Demo';
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    iframe.setAttribute('allowfullscreen', '');
+    facade.replaceWith(iframe);
+    iframe.focus();
+  });
+})();
+
+/* ── Theme toggle ───────────────────────────────────────── */
+(function () {
+  var btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  var meta = document.querySelector('meta[name="theme-color"]');
+  function apply(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('themis-theme', t); } catch (e) {}
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#0c1512' : '#0d3d36');
+    btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  apply(document.documentElement.getAttribute('data-theme') || 'light');
+  btn.addEventListener('click', function () {
+    apply(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+
+/* ── Scroll progress bar ────────────────────────────────── */
+(function () {
+  var bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  function update() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
+/* ── "Ask Themis" typing animation ──────────────────────── */
+(function () {
+  var typed = document.getElementById('mock-typed');
+  if (!typed) return;
+  var answer = document.getElementById('mock-answer');
+  var caret = document.getElementById('mock-caret');
+  var q = 'What must an employer prove before dismissing an employee for poor performance?';
+  function finish() {
+    typed.textContent = q;
+    caret.style.display = 'none';
+    answer.classList.add('shown');
+  }
+  if (prefersReduced || !('IntersectionObserver' in window)) { finish(); return; }
+  var started = false;
+  new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting || started) return;
+      started = true;
+      obs.disconnect();
+      var i = 0;
+      (function tick() {
+        typed.textContent = q.slice(0, ++i);
+        if (i < q.length) {
+          setTimeout(tick, 24 + Math.random() * 40);
+        } else {
+          setTimeout(function () {
+            caret.style.display = 'none';
+            answer.classList.add('shown');
+          }, 400);
+        }
+      })();
+    });
+  }, { threshold: 0.45 }).observe(typed.closest('.mock-shell'));
+})();
 
 /* ── 3D card tilt — mouse + touch, motion-safe ──────────── */
 var card = document.querySelector('.ai-box.interactive');

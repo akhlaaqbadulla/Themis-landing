@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0d3d36">
+    <meta name="color-scheme" content="light dark">
+    <script>
+        (function () {
+            var t = 'light';
+            try {
+                t = localStorage.getItem('themis-theme')
+                    || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            } catch (e) {}
+            document.documentElement.setAttribute('data-theme', t);
+        }());
+    </script>
+    <title>Page Not Found — Themis</title>
+    <meta name="robots" content="noindex">
+
+    <!-- Fonts & preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .notfound-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .notfound-card {
+            text-align: center;
+            max-width: 480px;
+        }
+
+        .notfound-card .notfound-code {
+            font-size: clamp(4rem, 12vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            color: var(--accent-color);
+            letter-spacing: -0.04em;
+        }
+
+        .notfound-code span {
+            color: var(--gold-accent);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-bg">
+        <div class="fixed-background" aria-hidden="true">
+            <img src="/cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+            <img src="/cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+            <img src="/cloud.webp" alt="" class="cloud" width="1988" height="1290" loading="lazy" decoding="async">
+        </div>
+
+        <div class="notfound-wrap">
+            <div class="glass-card notfound-card">
+                <p class="notfound-code">4<span>0</span>4</p>
+                <h2>These gates lead nowhere.</h2>
+                <p>The page you are looking for has been moved, renamed, or never existed. Even Themis, with 57,000+ judgments at her fingertips, could not find it.</p>
+                <a href="/" class="accent-btn" style="text-decoration:none; margin-top:1rem;">Return to the Gates &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

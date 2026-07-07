@@ -41,9 +41,21 @@ There are no build, lint, or test commands.
 
 ## JavaScript / Animation
 
-- **GSAP** (+ ScrollTrigger plugin) loaded via CDN — used for the loading screen fade and scroll-driven animations
-- The scrollytelling sequence in `index.html` advances the WebP frame index as the user scrolls through a sticky section
-- No other JS frameworks or libraries
+- All animation is vanilla JS (no frameworks or CDN libraries)
+- The scrollytelling sequence in `index.html` advances the WebP frame index as the user scrolls through a fixed-position canvas; frame density is tiered by viewport width and Save-Data, and the whole sequence is skipped for `prefers-reduced-motion`
+- The demo video is a click-to-load facade — the YouTube iframe is only injected on click
+
+## Theming
+
+- Light/dark theme via `data-theme` on `<html>` — a boot script in each page's `<head>` reads localStorage (`themis-theme`) falling back to `prefers-color-scheme`; the `.theme-toggle` button in the nav flips it
+- Dark styles live in `style.css` (shared surfaces) and `index.html`'s style block (index-only components); inline-styled text is caught by `[style*="color:..."]` attribute selectors with `!important`
+- The homepage testimonials are **placeholder quotes** — replace with real, permissioned quotes before promoting them; the "Ask Themis" console answer is illustrative copy that should be vetted by a practitioner
+
+## Assets & SEO
+
+- `cloud.webp` / `themis.webp` are the shipped images (`cloud.png` / `themis.png` / `marble_bg.png` are unreferenced originals)
+- `og-image.jpg` (1200×630) is the social share image for all pages
+- `sitemap.xml`, `robots.txt`, and `404.html` exist at the root; JSON-LD structured data (Organization, SoftwareApplication, FAQPage) lives in `index.html`
 
 ## Content Reference
 

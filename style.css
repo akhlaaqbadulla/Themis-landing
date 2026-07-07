@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap');
-
 /* ──────────────────────────────────────────────────────────
    Themis Landing — mobile-first, readability-first stylesheet
+   Fonts are loaded via <link> in each page's <head> (an
+   @import here would block rendering on every page).
    ────────────────────────────────────────────────────────── */
 
 *,
@@ -725,6 +725,26 @@ a#scroll-btn:after {
     }
 }
 
+/* ── Skip link (a11y) — hidden until keyboard-focused ──────── */
+.skip-link {
+    position: fixed;
+    top: -100px;
+    left: 16px;
+    z-index: 10000;
+    background: var(--accent-color);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+    top: 16px;
+}
+
 /* ── Section anchor offset (sticky nav doesn't cover) ──────── */
 section[id] {
     scroll-margin-top: calc(var(--nav-h) + 32px);
@@ -768,4 +788,290 @@ textarea:focus-visible,
 ::selection {
     background: rgba(212, 175, 55, 0.4);
     color: #000;
+}
+
+/* ── Nav link underline micro-interaction (desktop) ────────── */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .nav-links.center a:not(.nav-request-pill) {
+        position: relative;
+    }
+
+    .nav-links.center a:not(.nav-request-pill)::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        height: 2px;
+        width: 100%;
+        background: var(--gold-accent);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+    }
+
+    .nav-links.center a:not(.nav-request-pill):hover::after,
+    .nav-links.center a:not(.nav-request-pill).active::after {
+        transform: scaleX(1);
+    }
+}
+
+/* ── Gold shimmer sweep on primary CTAs ────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+    .accent-btn,
+    .hero-btn {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .accent-btn::before,
+    .hero-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -80%;
+        width: 45%;
+        height: 100%;
+        background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+        transform: skewX(-20deg);
+        transition: left 0.55s ease;
+        pointer-events: none;
+    }
+
+    .accent-btn:hover::before,
+    .hero-btn:hover::before {
+        left: 130%;
+    }
+}
+
+/* ── Section eyebrow label ─────────────────────────────────── */
+.section-eyebrow {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold-accent);
+    margin-bottom: 0.9rem;
+    /* keeps the small gold text legible where it crosses the statue */
+    text-shadow: 0 1px 8px rgba(255, 255, 255, 0.85), 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+html[data-theme="dark"] .section-eyebrow {
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85), 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+.section-eyebrow::after {
+    content: "";
+    display: block;
+    width: 38px;
+    height: 2px;
+    background: var(--gold-accent);
+    border-radius: 2px;
+    margin: 0.6rem auto 0;
+    opacity: 0.7;
+}
+
+/* ── Theme toggle (in glass nav) ───────────────────────────── */
+.theme-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(13, 61, 54, 0.15);
+    background: transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+    padding: 0;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background: rgba(13, 61, 54, 0.08);
+}
+
+.theme-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+html[data-theme="dark"] .theme-toggle .icon-sun {
+    display: block;
+}
+
+html[data-theme="dark"] .theme-toggle .icon-moon {
+    display: none;
+}
+
+@media (max-width: 767.98px) {
+    /* Burger sits left; keep the toggle clear of the pill edge */
+    .theme-toggle {
+        right: 10px;
+    }
+}
+
+/* ══ Dark mode ══════════════════════════════════════════════
+   Toggled by setting data-theme="dark" on <html> (boot script in
+   each page's <head> reads localStorage / prefers-color-scheme).
+   The blurred frame-192 backdrop stays; the white wash becomes a
+   deep teal-black wash and glass surfaces go dark.              */
+html[data-theme="dark"] {
+    --text-dark: #e9e6dd;
+    --glass-bg: rgba(18, 30, 27, 0.78);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-bg-soft: rgba(18, 30, 27, 0.6);
+    --accent-color: #8fd0c2;
+    --gold-accent: #dfc060;
+    color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+    color: var(--text-dark);
+}
+
+html[data-theme="dark"] body::before {
+    filter: blur(34px) saturate(0.7) brightness(0.5);
+}
+
+html[data-theme="dark"] body::after {
+    background: linear-gradient(180deg,
+            rgba(7, 13, 12, 0.7) 0%,
+            rgba(7, 13, 12, 0.84) 50%,
+            rgba(7, 13, 12, 0.9) 100%);
+}
+
+html[data-theme="dark"] .cloud {
+    opacity: 0.22 !important;
+    filter: brightness(0.65);
+}
+
+html[data-theme="dark"] .themis {
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.6)) brightness(0.85);
+}
+
+html[data-theme="dark"] .glass-nav {
+    background: rgba(13, 22, 20, 0.78) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="dark"] .nav-links.center a {
+    color: #cfe5de;
+}
+
+html[data-theme="dark"] .nav-links.center a:hover,
+html[data-theme="dark"] .nav-links.center a.active {
+    color: #fff;
+}
+
+@media (max-width: 767.98px) {
+    html[data-theme="dark"] .nav-links.center {
+        background: rgba(13, 22, 20, 0.96);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+html[data-theme="dark"] .nav-request-pill {
+    color: #f0d98a !important;
+}
+
+html[data-theme="dark"] .nav-burger span {
+    background: #cfe5de;
+}
+
+html[data-theme="dark"] .theme-toggle {
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #f0d98a;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .page-title {
+    color: #f2efe6;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+html[data-theme="dark"] .glass-card {
+    color: #d8d4c8;
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.06) inset,
+        0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="dark"] .glass-card h2 {
+    color: #f2efe6;
+}
+
+html[data-theme="dark"] .glass-card h3 {
+    color: var(--accent-color);
+}
+
+html[data-theme="dark"] .form-group label {
+    color: #e9e6dd;
+}
+
+html[data-theme="dark"] .form-control {
+    background: rgba(10, 18, 16, 0.8);
+    border-color: rgba(255, 255, 255, 0.14);
+    color: #f2efe6;
+}
+
+html[data-theme="dark"] .form-control:focus {
+    background: rgba(10, 18, 16, 0.95);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(143, 208, 194, 0.15);
+}
+
+html[data-theme="dark"] .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+html[data-theme="dark"] .accent-btn,
+html[data-theme="dark"] .hero-btn {
+    color: #f6e9bd !important;
+    background: rgba(212, 175, 55, 0.08);
+}
+
+html[data-theme="dark"] .accent-btn:hover,
+html[data-theme="dark"] .hero-btn:hover {
+    color: #fff !important;
+    background: rgba(212, 175, 55, 0.18);
+}
+
+html[data-theme="dark"] .footer-simple {
+    color: rgba(233, 230, 221, 0.6);
+}
+
+html[data-theme="dark"] a {
+    color: var(--accent-color);
+}
+
+html[data-theme="dark"] ::selection {
+    background: rgba(212, 175, 55, 0.5);
+    color: #000;
+}
+
+/* Catch-alls for the site's inline-styled text — inline styles lose
+   to !important, and the html[data-theme] prefix wins the specificity
+   race against everything else. */
+html[data-theme="dark"] [style*="color:#0d3d36"],
+html[data-theme="dark"] [style*="color: #0d3d36"] {
+    color: #cfe5de !important;
+}
+
+html[data-theme="dark"] [style*="color:rgba(0,0,0"],
+html[data-theme="dark"] [style*="color: rgba(0,0,0"] {
+    color: rgba(233, 230, 221, 0.72) !important;
 }
