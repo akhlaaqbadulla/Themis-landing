@@ -55,10 +55,31 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://the-company.ai/" },
-        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://the-company.ai/about.html" }
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://the-company.ai/" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://the-company.ai/about.html" }
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://the-company.ai/#business",
+          "name": "The AI Company",
+          "alternateName": "Themis — Legal AI Mauritius",
+          "description": "Mauritian company building Themis, the AI legal research counsel trained on the complete corpus of Mauritius law.",
+          "url": "https://the-company.ai/",
+          "email": "contact@the-company.ai",
+          "image": "https://the-company.ai/og-image.jpg",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Port Louis",
+            "addressCountry": "MU"
+          },
+          "areaServed": { "@type": "Country", "name": "Mauritius" },
+          "knowsAbout": ["Mauritius law", "Legal research", "Artificial intelligence", "Legal technology"]
+        }
       ]
     }
     </script>
@@ -135,6 +156,17 @@
                     <p>Your case data is encrypted and handled with the highest standards of confidentiality, ensuring
                         client privilege is never compromised.</p>
                 </div>
+            </div>
+
+            <div class="glass-card ios-reveal" style="margin-top: 2rem;">
+                <h2>The AI Company — Port Louis, Mauritius</h2>
+                <p>Themis is designed, built, and maintained in Mauritius by <strong>The AI Company</strong>, for the Mauritian legal profession. We are not a foreign platform with a local reskin: the corpus, the product, and the team are here.</p>
+                <p style="margin-top:0.75rem;">
+                    <strong>Location:</strong> Port Louis, Mauritius<br>
+                    <strong>Email:</strong> <a href="mailto:contact@the-company.ai">contact@the-company.ai</a><br>
+                    <strong>Product:</strong> Themis — AI Research Counsel for Mauritius Law
+                </p>
+                <p style="margin-top:0.75rem;">New to the field? Start with our <a href="legal-ai-mauritius.html">complete guide to legal AI in Mauritius</a>.</p>
             </div>
 
             <div class="glass-card ios-reveal" style="text-align: center; margin-top: 2rem;">
